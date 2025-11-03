@@ -1,0 +1,10 @@
+{
+  "name": "adhd-anxiety-solutions-api",
+  "version": "1.0.0",
+  "description": "API for patient inquiry form submissions",
+  "main": "api/send-inquiry.js",
+  "type": "module",
+  "dependencies": {
+    "resend": "^3.0.0"
+  }
+}

@@ -229,6 +229,41 @@ Before publishing each article:
 - [ ] Mobile-responsive design checked
 - [ ] Page load speed optimized
 
+## Blog Visibility & Growth Strategies
+
+### **1. Search Engine Optimization (SEO)**
+- **Content Calendar**: Publish 1-2 articles per week consistently
+- **Long-tail Keywords**: Target specific questions like "how to help 8-year-old with ADHD focus"
+- **Local SEO**: Include "California," "telemedicine," city names in content
+- **Internal Linking**: Link between related articles to increase time on site
+- **Backlink Strategy**: Guest post on parenting blogs, medical websites
+- **Featured Snippets**: Structure content to win Google position zero
+
+### **2. Email Marketing & Subscriptions**
+- **Newsletter**: Weekly/monthly roundup of new articles
+- **Lead Magnets**: Free guides (e.g., "ADHD Parenting Checklist")
+- **Automated Sequences**: Welcome series with best content
+- **Segmentation**: Parents of ADHD vs. anxiety patients
+
+### **3. Social Media Marketing**
+- **Pinterest**: Create infographics from blog content
+- **Facebook**: Share in parenting groups, local community groups
+- **LinkedIn**: Share professional articles on medical networks
+- **Instagram**: Quote graphics, short video tips
+- **Twitter**: Quick ADHD tips, article links
+
+### **4. Community Building**
+- **Comments Section**: Enable and respond to all comments
+- **Q&A Sessions**: Live sessions with Dr. Nash
+- **Parent Forum**: Community space for sharing experiences
+- **Expert Interviews**: Collaborate with other specialists
+
+### **5. Content Promotion**
+- **Email Outreach**: Share with pediatricians, schools, therapists
+- **Cross-Promotion**: Partner with related businesses
+- **Content Repurposing**: Turn articles into videos, podcasts, social posts
+- **Paid Promotion**: Facebook/Google ads targeting California parents
+
 ## Analytics and Performance Tracking
 
 Track these metrics after publishing:
@@ -236,6 +271,7 @@ Track these metrics after publishing:
 2. **Search Console**: Keyword rankings, click-through rates
 3. **Conversion Tracking**: Consultation requests from blog
 4. **Social Shares**: Engagement and reach on social platforms
+5. **Email Metrics**: Open rates, click-through rates, subscriber growth
 
 ## Emergency Procedures
 

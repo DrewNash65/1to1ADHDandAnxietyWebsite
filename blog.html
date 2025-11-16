@@ -111,6 +111,23 @@
 
         <section class="blog-content">
             <div class="container">
+                <!-- Newsletter Signup Section -->
+                <div class="blog-newsletter">
+                    <div class="newsletter-content">
+                        <h2>Stay Updated with Expert ADHD & Anxiety Tips</h2>
+                        <p>Get the latest articles, parenting strategies, and treatment insights delivered directly to your inbox. Join thousands of California parents who trust Dr. Nash's expertise.</p>
+                        <form class="newsletter-form" id="blogNewsletterForm">
+                            <div class="newsletter-input-group">
+                                <input type="email" id="blogEmail" placeholder="Enter your email address" required>
+                                <button type="submit" class="btn btn-primary">Subscribe</button>
+                            </div>
+                            <div class="newsletter-note">
+                                <p><i class="fas fa-lock"></i> We respect your privacy. Unsubscribe anytime.</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="blog-grid" id="blogGrid">
                     <!-- Blog articles will be dynamically loaded here -->
                 </div>
@@ -195,30 +212,133 @@
 
     <script src="js/script.js"></script>
     <script>
-        // Blog articles data - this will be populated from your blog articles folder
+        // Blog articles data
         const blogArticles = [
-            // Sample articles - replace with your actual articles
+            {
+                title: "Understanding ADHD in Children: Signs, Symptoms, and Support Strategies",
+                excerpt: "Learn to recognize ADHD symptoms and discover effective support strategies. A comprehensive guide for parents from Dr. Andrew L. Nash.",
+                category: "ADHD Management",
+                date: "January 15, 2025",
+                readTime: "8 min read",
+                image: "fas fa-brain",
+                url: "blog/articles/understanding-adhd-in-children.html",
+                author: "Andrew L. Nash, MD FAAP"
+            },
+            {
+                title: "5 Strategies for Managing Homework Battles with ADHD",
+                excerpt: "Practical tips for helping children with ADHD complete homework without the daily struggle. Create a positive homework environment.",
+                category: "ADHD Management",
+                date: "January 12, 2025",
+                readTime: "6 min read",
+                image: "fas fa-book",
+                url: "#",
+                author: "Andrew L. Nash, MD FAAP"
+            },
+            {
+                title: "Helping Your Anxious Child: A Parent's Guide",
+                excerpt: "Discover effective strategies for supporting children with anxiety. Learn how to create a safe space and build coping skills.",
+                category: "Anxiety Solutions",
+                date: "January 8, 2025",
+                readTime: "7 min read",
+                image: "fas fa-heart",
+                url: "#",
+                author: "Andrew L. Nash, MD FAAP"
+            }
         ];
 
         // Function to load blog articles
         function loadBlogArticles() {
             const blogGrid = document.getElementById('blogGrid');
 
-            // This will be populated from your blog articles
-            // For now, showing placeholder message
-            blogGrid.innerHTML = `
-                <div class="blog-placeholder">
-                    <div class="placeholder-icon">
-                        <i class="fas fa-pen-fancy"></i>
+            if (blogArticles.length === 0) {
+                blogGrid.innerHTML = `
+                    <div class="blog-placeholder">
+                        <div class="placeholder-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <h3>Coming Soon</h3>
+                        <p>Dr. Nash is working on valuable articles about ADHD and anxiety management for children. Check back soon for expert insights and practical tips!</p>
                     </div>
-                    <h3>Coming Soon</h3>
-                    <p>Dr. Nash is working on valuable articles about ADHD and anxiety management for children. Check back soon for expert insights and practical tips!</p>
-                </div>
-            `;
+                `;
+                return;
+            }
+
+            blogGrid.innerHTML = blogArticles.map(article => `
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="${article.image}"></i>
+                    </div>
+                    <div class="blog-content-card">
+                        <div class="blog-meta">
+                            <span class="blog-category">${article.category}</span>
+                            <span class="blog-date">
+                                <i class="far fa-calendar"></i> ${article.date}
+                            </span>
+                            <span class="reading-time">
+                                <i class="far fa-clock"></i> ${article.readTime}
+                            </span>
+                        </div>
+                        <h3>${article.title}</h3>
+                        <p class="blog-excerpt">${article.excerpt}</p>
+                        <div class="blog-author">
+                            <div class="author-avatar">AN</div>
+                            <div class="author-info">
+                                <h4>${article.author}</h4>
+                                <p>Board-Certified Pediatrician</p>
+                            </div>
+                        </div>
+                        <a href="${article.url}" class="btn btn-outline">Read Article</a>
+                    </div>
+                </article>
+            `).join('');
         }
 
-        // Load articles when page loads
-        document.addEventListener('DOMContentLoaded', loadBlogArticles);
+        // Newsletter form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBlogArticles();
+
+            const newsletterForm = document.getElementById('blogNewsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const email = document.getElementById('blogEmail').value;
+                    const submitButton = this.querySelector('button[type="submit"]');
+
+                    // Show loading state
+                    submitButton.textContent = 'Subscribing...';
+                    submitButton.disabled = true;
+
+                    // Simulate API call (replace with actual email service integration)
+                    setTimeout(() => {
+                        // Show success message
+                        const formHTML = this.innerHTML;
+                        this.innerHTML = `
+                            <div style="color: white; font-size: 1.1rem;">
+                                <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                                <h3 style="margin-bottom: 0.5rem;">Successfully Subscribed!</h3>
+                                <p>Thank you for joining our community. Check your email for a welcome message.</p>
+                            </div>
+                        `;
+
+                        // Log the email (replace with actual email service)
+                        console.log('Newsletter subscription:', email);
+
+                        // Reset form after 5 seconds
+                        setTimeout(() => {
+                            this.innerHTML = formHTML;
+                            document.getElementById('blogEmail').value = '';
+                            const newSubmitButton = this.querySelector('button[type="submit"]');
+                            newSubmitButton.textContent = 'Subscribe';
+                            newSubmitButton.disabled = false;
+
+                            // Re-attach event listener
+                            this.addEventListener('submit', arguments.callee);
+                        }, 5000);
+                    }, 1500);
+                });
+            }
+        });
     </script>
 </body>
 </html>

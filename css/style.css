@@ -1,17 +1,23 @@
-/* Color Palette based on logo */
+/* Color Palette based on updated logo */
 :root {
-    --primary-teal: #20B2AA;
-    --light-teal: #48D1CC;
-    --dark-teal: #008B8B;
-    --accent-teal: #40E0D0;
+    /* Primary brand tones (refined to match updated logo) */
+    --primary-teal: #13877f; /* deeper teal for stronger contrast */
+    --light-teal: #49d9c8;
+    --dark-teal: #0f6b69;
+    --accent-teal: #2fe0cf;
+
+    /* Blues used across the site */
+    --primary-blue: #1e6fb3; /* new primary blue for gradients */
     --secondary-blue: #4682B4;
+    --accent-blue: #6fb7e6;
     --light-blue: #87CEEB;
     --dark-blue: #1e40af;
+
     --secondary-gray: #64748b;
     --light-gray: #f0f9f8;
     --medium-gray: #f7fafc;
     --white: #ffffff;
-    --text-dark: #2d3748;
+    --text-dark: #1f2933;
     --text-light: #4a5568;
     --success-green: #10b981;
     --warning-yellow: #f59e0b;

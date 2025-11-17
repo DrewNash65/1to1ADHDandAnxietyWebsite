@@ -68,7 +68,7 @@ Copy and use this template for all articles:
         "name": "1-to-1 ADHD & Anxiety Solutions",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://adhd.1to1pediatrics.com/images/logo.png"
+          "url": "https://adhd.1to1pediatrics.com/images/1to1ADHDLogo2.png"
         }
       },
       "datePublished": "[YYYY-MM-DD]",

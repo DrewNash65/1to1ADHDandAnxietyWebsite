@@ -56,14 +56,570 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <style>
+        :root {
+            --primary: #0e8a9b;
+            --primary-dark: #0d6d7f;
+            --accent: #5fb878;
+            --accent-dark: #4a935f;
+            --secondary: #e86f56;
+            --secondary-dark: #ba4f3c;
+            --warm-cream: #fffaf3;
+        }
+
+        body {
+            font-family: 'Inter', 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fdfbf7;
+            color: #14213d;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', 'Roboto', 'Open Sans', sans-serif;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform-origin: left;
+            transform: scaleX(0);
+            z-index: 999;
+        }
+
+        .immersive-article {
+            overflow: hidden;
+        }
+
+        .immersive-article section {
+            position: relative;
+        }
+
+        .hero-grid {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 0 5rem;
+            background: radial-gradient(circle at top, rgba(14,138,155,0.12), transparent 55%), var(--warm-cream);
+        }
+
+        .hero-content {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-intro {
+            font-size: 1.25rem;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .hero-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .hero-card {
+            background: #fff;
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            border: 1px solid rgba(14,138,155,0.15);
+            box-shadow: 0 20px 40px rgba(14, 138, 155, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 50px rgba(14, 138, 155, 0.12);
+        }
+
+        .hero-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .hero-card:nth-child(1) .hero-card-icon { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+        .hero-card:nth-child(2) .hero-card-icon { background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); }
+        .hero-card:nth-child(3) .hero-card-icon { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+
+        .scroll-indicator {
+            margin-top: 3rem;
+            color: #6b7280;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.85rem;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator-track {
+            width: 28px;
+            height: 48px;
+            border-radius: 999px;
+            border: 2px solid currentColor;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 0.4rem;
+            overflow: hidden;
+        }
+
+        .scroll-indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: scroll-dot 2.5s infinite;
+        }
+
+        @keyframes scroll-dot {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            80% { transform: translateY(18px); opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-intro h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-intro p {
+            font-size: 1.15rem;
+            color: #4a5568;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .analogies-section {
+            padding: 5rem 0;
+            background: #fff;
+        }
+
+        .analogy-paragraph {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .analogy-highlight {
+            border-left: 4px solid var(--primary);
+            background: rgba(14,138,155,0.08);
+            padding: 1.5rem;
+            border-radius: 0 1rem 1rem 0;
+            font-weight: 600;
+        }
+
+        .rising-tide {
+            padding: 5rem 0;
+            background: linear-gradient(180deg, #fff, rgba(14,138,155,0.04));
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(20, 33, 61, 0.08);
+            box-shadow: 0 20px 40px rgba(4, 46, 76, 0.08);
+        }
+
+        .stat-accent {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .factor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .factor-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            background: rgba(255,255,255,0.85);
+            border: 1px solid rgba(20,33,61,0.06);
+        }
+
+        .factor-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+        }
+
+        .factor-icon.tech { background: rgba(110, 143, 175, 0.15); }
+        .factor-icon.genetics { background: rgba(226, 232, 240, 0.8); }
+        .factor-icon.diet { background: rgba(95, 184, 120, 0.15); }
+
+        .control-message {
+            margin-top: 3rem;
+            background: rgba(95, 184, 120, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 0 1.5rem 1.5rem 0;
+        }
+
+        .important-pill,
+        .positive-pill,
+        .evidence-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 999px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .important-pill { background: rgba(232, 111, 86, 0.15); color: var(--secondary-dark); }
+        .positive-pill { background: rgba(95, 184, 120, 0.15); color: var(--accent-dark); }
+        .evidence-pill { background: rgba(14, 138, 155, 0.12); color: var(--primary-dark); }
+
+        .food-grid,
+        .nutrition-grid,
+        .supplement-stack,
+        .research-accordion,
+        .cta-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .food-to-avoid-card,
+        .nutrition-card,
+        .supplement-card,
+        .research-card,
+        .takeaway-card {
+            border-radius: 1.5rem;
+            background: #fff;
+            border: 1px solid rgba(20, 33, 61, 0.08);
+            box-shadow: 0 10px 30px rgba(20, 33, 61, 0.06);
+        }
+
+        .food-to-avoid-card {
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .food-to-avoid-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(20, 33, 61, 0.08);
+        }
+
+        .food-to-avoid-card[data-expanded="true"] {
+            border-color: rgba(232,111,86,0.35);
+            background: rgba(255,255,255,0.95);
+        }
+
+        .food-card-header {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .food-card-icon {
+            font-size: 2rem;
+        }
+
+        .food-card-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+
+        .food-to-avoid-card[data-expanded="true"] .food-card-body {
+            max-height: 240px;
+            margin-top: 1rem;
+        }
+
+        .food-card-footnote {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--secondary-dark);
+            font-weight: 600;
+        }
+
+        .nutrition-grid {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .nutrition-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .nutrition-card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(20, 33, 61, 0.05);
+            background: linear-gradient(135deg, rgba(14, 138, 155, 0.08), rgba(95, 184, 120, 0.08));
+        }
+
+        .nutrition-card-list {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .nutrition-card-list span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .supplement-stack {
+            gap: 1.25rem;
+        }
+
+        .supplement-card {
+            padding: 1.75rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .supplement-bullet {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .supplement-bullet span {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .gut-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .diagram-card {
+            text-align: center;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            background: #fff;
+            border: 2px solid rgba(14,138,155,0.2);
+            box-shadow: 0 20px 40px rgba(14,138,155,0.08);
+        }
+
+        .diagram-connector {
+            text-align: center;
+        }
+
+        .gut-insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .research-accordion {
+            gap: 1rem;
+        }
+
+        .research-card header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(20,33,61,0.06);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .research-card button {
+            all: unset;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .research-card[aria-expanded="true"] .research-body {
+            max-height: 540px;
+            padding: 1.5rem;
+        }
+
+        .research-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: rgba(20,33,61,0.02);
+        }
+
+        .research-study {
+            background: #fff;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(14,138,155,0.12);
+        }
+
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, rgba(14,138,155,0.08), rgba(95,184,120,0.08));
+        }
+
+        .cta-card {
+            background: #fff;
+            border-radius: 2rem;
+            padding: 3rem;
+            box-shadow: 0 40px 80px rgba(14, 138, 155, 0.15);
+            border: 1px solid rgba(14, 138, 155, 0.12);
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .cta-primary,
+        .cta-outline {
+            border-radius: 999px;
+            padding: 0.9rem 2.4rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(14,138,155,0.25);
+        }
+
+        .cta-outline {
+            border: 2px solid rgba(14,138,155,0.2);
+            color: var(--primary-dark);
+        }
+
+        .cta-note {
+            margin-top: 3rem;
+            font-style: italic;
+            color: #4a5568;
+            text-align: center;
+        }
+
+        .final-cheer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .hero-card {
+                padding: 1.25rem;
+            }
+
+            .supplement-card {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal,
+            .hero-card,
+            .food-to-avoid-card,
+            .takeaway-card {
+                transition: none !important;
+            }
+
+            .scroll-indicator-dot,
+            .cta-card::before {
+                animation: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="reading-progress" id="readingProgress"></div>
+
     <header>
         <nav class="navbar">
             <div class="nav-container">
@@ -88,167 +644,601 @@
         </nav>
     </header>
 
-    <main>
-        <section class="article-header">
+    <main class="immersive-article">
+        <section class="hero-grid">
             <div class="container">
-                <div class="article-meta">
-                    <span class="blog-category">Nutrition & Lifestyle</span>
-                    <span class="blog-date">
-                        <i class="far fa-calendar"></i> November 16, 2025
-                    </span>
-                    <span class="reading-time">
-                        <i class="far fa-clock"></i> 8 min read
-                    </span>
-                </div>
-                <h1>The Importance of Nutrition in Managing ADHD and Anxiety in Children</h1>
-                <p>Discover how proper nutrition can fuel your child's brain for optimal focus and emotional regulation, with evidence-based strategies for ADHD and anxiety management.</p>
-            </div>
-        </section>
-
-        <section class="article-content">
-            <div class="article-container">
-                <p>If I was to build a racecar, I would want all the components to be of the highest quality. The steering, the suspension and the brakes would need to be finely tuned to maximize the handling and ride. Most importantly, if I had a high-performance engine to power that race car, I would put nothing but the best quality fuel in the tank.</p>
-
-                <p>If I went to the trouble of building the race car of my dreams and put low quality fuel in there, I should not be disappointed if the car was not a contender. To go to all that effort and then to not give the finely tuned engine the fuel it deserves, and needs would be ridiculous.</p>
-
-                <div class="article-blockquote">
-                    <p>Enough of the analogy. There has been a startling increase in both Attention Deficit Hyperactivity Disorder (ADHD) as well as Anxiety in the pediatric population over the past 10-15 years.</p>
+                <div class="hero-content reveal">
+                    <p class="important-pill">Nutrition &amp; Lifestyle</p>
+                    <h1 class="hero-title">The Importance of <span class="hero-highlight">Nutrition</span> in Managing ADHD and Anxiety</h1>
+                    <p class="hero-intro">Discover how proper nutrition can fuel your child's brain for optimal focus and emotional regulation. We transform evidence-based strategies into an immersive guide you can act on today.</p>
                 </div>
 
-                <h2>The Rising Tide of ADHD and Anxiety</h2>
-                <p>The incidence was increasing even before the pandemic, which worsened things exponentially. Why? There are many reasons. Technology/screens and social media are factors that are frequently pointed to and implicated. Genetics are also a predisposing factor.</p>
-
-                <p>The contributor that has not gotten enough "air play" in my opinion is diet and nutrition. Processed and "ultra" processed foods, high fructose corn syrup, food additives and dyes have contributed to so many health issues in this country.</p>
-
-                <p>We know about links between these "foods" and increasing rates of obesity, type 2 diabetes, and metabolic syndrome. Many of these "food products" and additives are not legal in Europe. It doesn't seem a stretch to think that these chemicals that are making the American population sick are also making our children not function at their best.</p>
-
-                <p>To go back to the analogy, don't expect the engine to run optimally if the fuel is of poor quality.</p>
-
-                <h2>What to Avoid in Your Child's Diet</h2>
-                <p>So, what should we avoid in our diet? <strong>Processed foods.</strong> Things that clearly aren't "natural." Cheese doesn't come from a can! Read labels. Anything that has "high fructose corn syrup" (HFCS) or something similar toward the top of the ingredient list should be put back on the shelf.</p>
-
-                <p>Foods that are labeled "low fat" usually have HFCS or another ultra processed item as a replacement. Foods that have artificial coloring in them (especially Red#40) are not good for your child. Sweetened beverages, which means sodas but also sport drinks and even fruit juices, will make your child's insulin level soar and then crash making it harder for them to control their emotions and focus.</p>
-
-                <h3>Key Foods to Avoid:</h3>
-                <ul>
-                    <li><strong>Processed and ultra-processed foods</strong> - anything that doesn't look like its original form</li>
-                    <li><strong>High fructose corn syrup</strong> - check ingredient lists carefully</li>
-                    <li><strong>Artificial food dyes</strong> - especially Red #40 and other synthetic colors</li>
-                    <li><strong>"Low fat" products</strong> - often contain processed sugar replacements</li>
-                    <li><strong>Sweetened beverages</strong> - sodas, sports drinks, and even fruit juices</li>
-                    <li><strong>Foods with long ingredient lists</strong> - if you can't pronounce it, avoid it</li>
-                </ul>
-
-                <h2>What to Include in Your Child's Diet</h2>
-                <p>What is good in our diet? <strong>Protein:</strong> meats, eggs, beans and whole grains together, tofu, hummus, complex carbohydrates, etc. will nourish them, fuel their body and maintain even blood sugar levels.</p>
-
-                <p><strong>Fruits</strong> (not their juices) and <strong>vegetables</strong> have natural fibers that slow down digestion and promote a balanced microbiome in the gut. More and more research indicates that the "microbiome" or healthy bacteria in an individual's gut can influence not just risk of disease long term but mood and levels of anxiety as well.</p>
-
-                <p><strong>Healthy fats</strong> are great too, like the ones you get from nuts, fish and even dairy in moderate amounts. Fats are necessary for brain development (especially Omega-3's). In addition, fats slow down digestion and allow the carbs that your child consumes to be absorbed more slowly.</p>
-
-                <h3>Nutritional Building Blocks for Better Focus:</h3>
-                <ul>
-                    <li><strong>Complete proteins</strong> - eggs, lean meats, fish, beans with whole grains</li>
-                    <li><strong>Complex carbohydrates</strong> - whole grains, sweet potatoes, legumes</li>
-                    <li><strong>Fresh fruits and vegetables</strong> - natural fiber and micronutrients</li>
-                    <li><strong>Healthy fats</strong> - nuts, seeds, avocado, olive oil, fatty fish</li>
-                    <li><strong>Probiotic foods</strong> - yogurt, kefir, fermented vegetables</li>
-                </ul>
-
-                <h2>Essential Nutrients for Growing Brains</h2>
-                <p>What do growing brains need more of? <strong>Healthy fats</strong>, as I mentioned above, especially Omega fatty acids. There have been several well-constructed studies showing that supplementing with specific Omega-3 fatty acids (EPA to DHA in a 2:1 or higher ratio) will help improve emotional regulation and focus in children.</p>
-
-                <p>Similarly, studies show that supplementing with <strong>vitamin D3</strong>, <strong>magnesium</strong> and <strong>zinc</strong> (the calming electrolytes) will help not only attention and focus but also sleep. I have included the citations for many of these studies in case you would like to check them out. Using well designed prospective studies can help take the guesswork out of trying to provide optimal nutrition for your children.</p>
-
-                <h3>Key Supplements for ADHD and Anxiety:</h3>
-                <div class="article-blockquote">
-                    <p><strong>Omega-3 Fatty Acids (EPA:DHA 2:1 ratio)</strong> - Multiple studies show improved emotional regulation and focus</p>
+                <div class="hero-cards">
+                    <article class="hero-card reveal" data-delay="0.1">
+                        <div class="hero-card-icon"><i class="fas fa-bolt"></i></div>
+                        <h3>High-Performance Engine</h3>
+                        <p>Your child's developing brain needs premium fuel to run smoothly.</p>
+                    </article>
+                    <article class="hero-card reveal" data-delay="0.2">
+                        <div class="hero-card-icon"><i class="fas fa-gas-pump"></i></div>
+                        <h3>Quality Fuel</h3>
+                        <p>Whole foods, fiber, protein, and healthy fats power better focus.</p>
+                    </article>
+                    <article class="hero-card reveal" data-delay="0.3">
+                        <div class="hero-card-icon"><i class="fas fa-gauge-high"></i></div>
+                        <h3>Optimal Performance</h3>
+                        <p>Balanced nutrition supports emotional regulation and calmer days.</p>
+                    </article>
                 </div>
 
-                <ul>
-                    <li><strong>Magnesium</strong> - The "calming electrolyte" that helps with focus and sleep</li>
-                    <li><strong>Vitamin D3</strong> - Supports mood regulation and cognitive function</li>
-                    <li><strong>Zinc</strong> - Essential for neurotransmitter function and attention</li>
-                    <li><strong>Probiotics</strong> - Support gut-brain connection and mood stability</li>
-                </ul>
-
-                <h2>The Gut-Brain Connection</h2>
-                <p>The research on microbiome health in children is increasingly compelling. Studies show that the composition of gut bacteria in early childhood can predict internalizing symptoms like anxiety later in life. This gut-brain axis appears to play a crucial role in emotional regulation and behavioral outcomes.</p>
-
-                <h2>Our Comprehensive Approach to Nutrition</h2>
-                <p>Here at 1-to-1 ADHD & Anxiety Solutions we take the topic of child nutrition seriously. If we (clinician and parent) are addressing your child's struggles with attention and/or anxiety and are considering prescribing a medication to help alleviate these problems, we should definitely ensure that the fuel going into the engine is of the best quality possible.</p>
-
-                <p>In this day and age of busy schedules, TV and online advertisements, and limited time to prepare meals, maximizing your child's nutrition can be next to impossible. Consequently, I have arranged a team of online nutritional counsellors and dieticians to work with children and parents to help navigate the modern world of food choices "dos and don'ts."</p>
-
-                <p>I don't expect parents to be able to get their kids to "see the light" and only make good choices. There needs to be a comprehensive approach. Children and families who join this practice will have their dietary status addressed and be referred for nutritional counselling as part of their ongoing management.</p>
-
-                <p>Nutrition is just one aspect of the multi-dimensional approach that both makes this practice unique and will allow parents to help their children help themselves maximize their academic and social functioning and happiness.</p>
-
-                <h2>Scientific Evidence and Research</h2>
-                <p>The nutritional recommendations in this article are based on peer-reviewed scientific research. Below are the key studies supporting the use of specific supplements and dietary approaches for managing ADHD and anxiety in children:</p>
-
-                <div class="article-blockquote">
-                    <p><strong>Evidence-Based Practice:</strong> All recommendations are supported by well-designed prospective studies and systematic reviews, taking the guesswork out of providing optimal nutrition for children.</p>
-                </div>
-
-                <h3>Omega-3 Fatty Acid Research</h3>
-                <p>Multiple high-quality studies demonstrate the effectiveness of Omega-3 supplementation for children with ADHD:</p>
-                <ul>
-                    <li><strong>Bloch & Qawasmi (2011)</strong> - Systematic review and meta-analysis showing Omega-3 fatty acid supplementation significantly improves ADHD symptoms in children (J Am Acad Child Adolesc Psychiatry, 50(10), 991–1000).</li>
-                    <li><strong>Chang et al. (2018)</strong> - Comprehensive systematic review and meta-analysis confirming benefits of Omega-3 polyunsaturated fatty acids for ADHD (Neuropsychopharmacology, 43(3), 534–545).</li>
-                    <li><strong>Chang (2021)</strong> - Focus review highlighting Omega-3's role in ADHD management (Frontiers in Psychiatry).</li>
-                    <li><strong>Derbyshire (2017)</strong> - Evaluation of therapeutic role of Omega-3/6 fatty acids in children and young people with ADHD (J Lipids Health Dis, 16:143).</li>
-                </ul>
-
-                <h3>Magnesium, Zinc, and Vitamin D Research</h3>
-                <p>Clinical trials support the use of these essential nutrients for improving attention, focus, and sleep in children with ADHD:</p>
-                <ul>
-                    <li><strong>Hemamy et al.</strong> - Randomized controlled trial demonstrating vitamin D and magnesium supplementation improves mental health and behavioral problems in children with ADHD (BMC Pediatrics).</li>
-                    <li><strong>El Baza et al.</strong> - Study showing magnesium supplementation benefits children with attention deficit hyperactivity disorder (Egypt J Med Hum Genet).</li>
-                    <li><strong>Kalejahi et al.</strong> - Systematic review examining magnesium status and supplementation effectiveness in children with ADHD (J Pediatr Rev).</li>
-                </ul>
-
-                <h3>Gut Microbiome Research</h3>
-                <p>Recent research establishes the crucial connection between gut health and mental health in children:</p>
-                <ul>
-                    <li><strong>Querdasi et al. (2025)</strong> - Study linking childhood gut microbiome to internalizing symptoms at school age through functional connectome analysis (Nature Communications).</li>
-                    <li><strong>Ou et al. (2024)</strong> - Research on gut microbiota development from birth through adolescence and its relationship with anxiety and behavioral difficulties (European Child & Adolescent Psychiatry).</li>
-                    <li><strong>Fujihara et al.</strong> - Study showing altered gut microbiota composition is associated with difficulties in emotion regulation in young children.</li>
-                </ul>
-
-                <p>This growing body of research underscores the importance of considering nutrition as a fundamental component of comprehensive ADHD and anxiety management in children. By integrating evidence-based nutritional strategies with other therapeutic approaches, we can provide children with the best possible foundation for optimal cognitive function and emotional wellbeing.</p>
-
-                <p>Ready, set……..GO!</p>
-
-                <div style="text-align: center; margin: 2rem 0;">
-                    <i class="fas fa-flag-checkered" style="font-size: 3rem; color: var(--primary-teal);"></i>
-                </div>
-
-                <p>If you're concerned about your child's nutrition and its impact on ADHD or anxiety symptoms, schedule a consultation to develop a comprehensive approach that includes nutritional guidance, behavioral strategies, and medical support when needed.</p>
-
-                <h2>Key Takeaways</h2>
-                <ul>
-                    <li>Quality nutrition is essential fuel for your child's developing brain</li>
-                    <li>Avoid processed foods, artificial additives, and sweetened beverages</li>
-                    <li>Focus on whole foods, proteins, healthy fats, and complex carbohydrates</li>
-                    <li>Consider evidence-based supplements like Omega-3s, magnesium, and vitamin D</li>
-                    <li>Support gut health through probiotic foods and fiber</li>
-                    <li>Take a comprehensive approach that combines nutrition with other treatment strategies</li>
-                </ul>
-
-                <p>Every child is unique, and nutritional needs may vary. Working with healthcare professionals who understand both ADHD/anxiety and nutrition can help you develop a personalized plan that supports your child's optimal functioning and wellbeing.</p>
-
-            </div>
-        </section>
-
-        <section class="article-footer">
-            <div class="container">
-                <div class="author-bio">
-                    <div class="author-photo">AN</div>
-                    <div class="author-bio-text">
-                        <h3>About the Author</h3>
-                        <p><strong>Andrew L. Nash, MD FAAP</strong> is a board-certified pediatrician with over 30 years of experience specializing in ADHD and anxiety disorders. He founded 1-to-1 ADHD & Anxiety Solutions to provide specialized telemedicine care for California families, taking a comprehensive approach that includes nutrition, behavioral strategies, and medical management.</p>
+                <div class="scroll-indicator reveal" data-delay="0.4">
+                    <span>Scroll</span>
+                    <div class="scroll-indicator-track">
+                        <div class="scroll-indicator-dot"></div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="analogies-section">
+            <div class="container">
+                <div class="section-intro reveal">
+                    <p class="positive-pill">Fuel Matters</p>
+                    <h2>From Racecars to Real Life</h2>
+                    <p>If you built the racecar of your dreams, you would never fill the tank with low-quality fuel. The same holds true for your child's brain.</p>
+                </div>
+
+                <p class="analogy-paragraph reveal">If I was to build a racecar, I would want all the components to be of the highest quality. The steering, the suspension and the brakes would need to be finely tuned to maximize the handling and ride. Most importantly, if I had a high-performance engine to power that race car, I would put nothing but the best quality fuel in the tank.</p>
+
+                <p class="analogy-paragraph reveal" data-delay="0.1">If I went to the trouble of building the race car of my dreams and put low quality fuel in there, I should not be disappointed if the car was not a contender. To go to all that effort and then to not give the finely tuned engine the fuel it deserves, and needs would be ridiculous.</p>
+
+                <div class="analogy-highlight reveal" data-delay="0.2">
+                    Don't expect the engine to run optimally if the fuel is of poor quality.
+                </div>
+            </div>
+        </section>
+
+        <section class="rising-tide">
+            <div class="container">
+                <div class="section-intro reveal">
+                    <p class="important-pill">The Rising Tide</p>
+                    <h2>The Increasing Rates of ADHD &amp; Anxiety</h2>
+                    <p>There has been a startling increase in both ADHD and anxiety in the pediatric population over the past 10-15 years, accelerated by the pandemic.</p>
+                </div>
+
+                <div class="stat-grid">
+                    <article class="stat-card reveal">
+                        <div class="stat-accent" data-count="15" data-suffix="+">0</div>
+                        <h3>Years of Increase</h3>
+                        <p>Rates were climbing even before the pandemic, which worsened things exponentially.</p>
+                    </article>
+                    <article class="stat-card reveal" data-delay="0.1">
+                        <div class="stat-accent" data-count="3" data-prefix="">0</div>
+                        <h3>Major Contributors</h3>
+                        <p>Technology, genetics, and nutrition all play significant roles in how children feel and function.</p>
+                    </article>
+                </div>
+
+                <div class="factor-grid">
+                    <div class="factor-card reveal">
+                        <div class="factor-icon tech"><i class="fas fa-mobile-alt"></i></div>
+                        <h4>Technology &amp; Screens</h4>
+                        <p>Social media and constant screen time are frequently implicated factors.</p>
+                    </div>
+                    <div class="factor-card reveal" data-delay="0.1">
+                        <div class="factor-icon genetics"><i class="fas fa-dna"></i></div>
+                        <h4>Genetic Factors</h4>
+                        <p>Hereditary predisposition influences ADHD and anxiety susceptibility.</p>
+                    </div>
+                    <div class="factor-card reveal" data-delay="0.2">
+                        <div class="factor-icon diet"><i class="fas fa-apple-alt"></i></div>
+                        <h4>Diet &amp; Nutrition</h4>
+                        <p>The often-overlooked contributor that deserves much more focus.</p>
+                    </div>
+                </div>
+
+                <div class="control-message reveal" data-delay="0.3">
+                    Processed and ultra-processed foods, high fructose corn syrup, food additives and dyes contribute to obesity, type 2 diabetes, metabolic syndrome, and prevent children from functioning at their best.
+                </div>
+            </div>
+        </section>
+
+        <section class="analogies-section" id="foods-to-avoid">
+            <div class="container">
+                <div class="section-intro reveal">
+                    <p class="important-pill"><i class="fas fa-triangle-exclamation"></i> Important to Know</p>
+                    <h2>What to Avoid in Your Child's Diet</h2>
+                    <p>These foods can disrupt blood sugar stability, interfere with emotional regulation, and undermine focus.</p>
+                </div>
+
+                <div class="food-grid">
+                    <article class="food-to-avoid-card reveal" data-expandable>
+                        <div class="food-card-header">
+                            <div class="food-card-icon">🏭</div>
+                            <div>
+                                <h3>Processed &amp; Ultra-Processed Foods</h3>
+                                <p>Anything that doesn't look like its original form</p>
+                            </div>
+                        </div>
+                        <div class="food-card-body">
+                            <p>These foods are stripped of nutrients and loaded with additives that can affect brain function and behavior.</p>
+                        </div>
+                        <div class="food-card-footnote">Tap to learn more</div>
+                    </article>
+
+                    <article class="food-to-avoid-card reveal" data-delay="0.1" data-expandable>
+                        <div class="food-card-header">
+                            <div class="food-card-icon">🌽</div>
+                            <div>
+                                <h3>High Fructose Corn Syrup</h3>
+                                <p>Read ingredient lists carefully</p>
+                            </div>
+                        </div>
+                        <div class="food-card-body">
+                            <p>HFCS causes rapid blood sugar spikes and crashes, making it harder for children to calm their emotions and attention.</p>
+                        </div>
+                        <div class="food-card-footnote">Tap to learn more</div>
+                    </article>
+
+                    <article class="food-to-avoid-card reveal" data-delay="0.2" data-expandable>
+                        <div class="food-card-header">
+                            <div class="food-card-icon">🎨</div>
+                            <div>
+                                <h3>Artificial Food Dyes</h3>
+                                <p>Especially Red #40 and synthetic colors</p>
+                            </div>
+                        </div>
+                        <div class="food-card-body">
+                            <p>Studies link artificial dyes to hyperactivity and attention problems in children. Many of these dyes are banned in Europe.</p>
+                        </div>
+                        <div class="food-card-footnote">Tap to learn more</div>
+                    </article>
+
+                    <article class="food-to-avoid-card reveal" data-delay="0.3" data-expandable>
+                        <div class="food-card-header">
+                            <div class="food-card-icon">🧈</div>
+                            <div>
+                                <h3>"Low Fat" Products</h3>
+                                <p>Often hide ultra-processed additives</p>
+                            </div>
+                        </div>
+                        <div class="food-card-body">
+                            <p>When fat is removed, it is usually replaced with HFCS or chemical stabilizers that are worse for health.</p>
+                        </div>
+                        <div class="food-card-footnote">Tap to learn more</div>
+                    </article>
+
+                    <article class="food-to-avoid-card reveal" data-delay="0.4" data-expandable>
+                        <div class="food-card-header">
+                            <div class="food-card-icon">🥤</div>
+                            <div>
+                                <h3>Sweetened Beverages</h3>
+                                <p>Sodas, sports drinks, even fruit juices</p>
+                            </div>
+                        </div>
+                        <div class="food-card-body">
+                            <p>These drinks cause insulin levels to soar and crash, making it harder for kids to control their emotions and focus.</p>
+                        </div>
+                        <div class="food-card-footnote">Tap to learn more</div>
+                    </article>
+
+                    <article class="food-to-avoid-card reveal" data-delay="0.5" data-expandable>
+                        <div class="food-card-header">
+                            <div class="food-card-icon">📋</div>
+                            <div>
+                                <h3>Long Ingredient Lists</h3>
+                                <p>If you can't pronounce it, skip it</p>
+                            </div>
+                        </div>
+                        <div class="food-card-body">
+                            <p>Complex chemical names often indicate artificial additives and preservatives that do not belong in a healthy diet.</p>
+                        </div>
+                        <div class="food-card-footnote">Tap to learn more</div>
+                    </article>
+                </div>
+
+                <div class="control-message reveal" data-delay="0.6">
+                    Read labels carefully. Cheese doesn't come from a can! Anything with HFCS or synthetic dyes toward the top of the label belongs back on the shelf.
+                </div>
+            </div>
+        </section>
+
+        <section class="analogies-section" id="foods-to-include">
+            <div class="container">
+                <div class="section-intro reveal">
+                    <p class="positive-pill"><i class="fas fa-wand-magic-sparkles"></i> Fuel for Success</p>
+                    <h2>What to Include in Your Child's Diet</h2>
+                    <p>These nutritional building blocks provide the foundation for better focus, emotional regulation, and overall wellbeing.</p>
+                </div>
+
+                <div class="nutrition-grid">
+                    <article class="nutrition-card reveal">
+                        <div class="nutrition-card-header">
+                            <div class="food-card-icon">🥚</div>
+                            <div>
+                                <h3>Complete Proteins</h3>
+                                <p>Nourish the body and steady blood sugar</p>
+                            </div>
+                        </div>
+                        <div class="nutrition-card-list">
+                            <span><i class="fas fa-check-circle"></i> Eggs</span>
+                            <span><i class="fas fa-check-circle"></i> Lean meats</span>
+                            <span><i class="fas fa-check-circle"></i> Fish</span>
+                            <span><i class="fas fa-check-circle"></i> Beans + whole grains</span>
+                            <span><i class="fas fa-check-circle"></i> Tofu</span>
+                            <span><i class="fas fa-check-circle"></i> Hummus</span>
+                        </div>
+                    </article>
+
+                    <article class="nutrition-card reveal" data-delay="0.1">
+                        <div class="nutrition-card-header">
+                            <div class="food-card-icon">🌾</div>
+                            <div>
+                                <h3>Complex Carbohydrates</h3>
+                                <p>Provide sustained energy and stable glucose</p>
+                            </div>
+                        </div>
+                        <div class="nutrition-card-list">
+                            <span><i class="fas fa-check-circle"></i> Whole grains</span>
+                            <span><i class="fas fa-check-circle"></i> Sweet potatoes</span>
+                            <span><i class="fas fa-check-circle"></i> Legumes</span>
+                            <span><i class="fas fa-check-circle"></i> Brown rice</span>
+                            <span><i class="fas fa-check-circle"></i> Quinoa</span>
+                            <span><i class="fas fa-check-circle"></i> Oats</span>
+                        </div>
+                    </article>
+
+                    <article class="nutrition-card reveal" data-delay="0.2">
+                        <div class="nutrition-card-header">
+                            <div class="food-card-icon">🥗</div>
+                            <div>
+                                <h3>Fresh Fruits &amp; Vegetables</h3>
+                                <p>Natural fiber for happy gut health</p>
+                            </div>
+                        </div>
+                        <div class="nutrition-card-list">
+                            <span><i class="fas fa-check-circle"></i> Berries</span>
+                            <span><i class="fas fa-check-circle"></i> Leafy greens</span>
+                            <span><i class="fas fa-check-circle"></i> Colorful veggies</span>
+                            <span><i class="fas fa-check-circle"></i> Apples</span>
+                            <span><i class="fas fa-check-circle"></i> Bananas</span>
+                            <span><i class="fas fa-check-circle"></i> Carrots</span>
+                        </div>
+                    </article>
+
+                    <article class="nutrition-card reveal" data-delay="0.3">
+                        <div class="nutrition-card-header">
+                            <div class="food-card-icon">🥑</div>
+                            <div>
+                                <h3>Healthy Fats</h3>
+                                <p>Essential for brain development</p>
+                            </div>
+                        </div>
+                        <div class="nutrition-card-list">
+                            <span><i class="fas fa-check-circle"></i> Nuts &amp; seeds</span>
+                            <span><i class="fas fa-check-circle"></i> Avocado</span>
+                            <span><i class="fas fa-check-circle"></i> Olive oil</span>
+                            <span><i class="fas fa-check-circle"></i> Fatty fish</span>
+                            <span><i class="fas fa-check-circle"></i> Nut butters</span>
+                            <span><i class="fas fa-check-circle"></i> Greek yogurt</span>
+                        </div>
+                    </article>
+
+                    <article class="nutrition-card reveal" data-delay="0.4">
+                        <div class="nutrition-card-header">
+                            <div class="food-card-icon">🥛</div>
+                            <div>
+                                <h3>Probiotic Foods</h3>
+                                <p>Support gut-brain connection</p>
+                            </div>
+                        </div>
+                        <div class="nutrition-card-list">
+                            <span><i class="fas fa-check-circle"></i> Yogurt &amp; kefir</span>
+                            <span><i class="fas fa-check-circle"></i> Fermented veggies</span>
+                            <span><i class="fas fa-check-circle"></i> Kombucha</span>
+                            <span><i class="fas fa-check-circle"></i> Sauerkraut</span>
+                            <span><i class="fas fa-check-circle"></i> Kimchi</span>
+                            <span><i class="fas fa-check-circle"></i> Tempeh</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="control-message reveal" data-delay="0.5">
+                    <strong>Protein</strong> fuels steady blood sugar. <strong>Fruits and vegetables</strong> provide fiber for a balanced microbiome. <strong>Healthy fats</strong> slow digestion so carbs absorb more slowly for sustained energy.
+                </div>
+            </div>
+        </section>
+
+        <section class="rising-tide" id="supplements">
+            <div class="container">
+                <div class="section-intro reveal">
+                    <p class="evidence-pill"><i class="fas fa-capsules"></i> Evidence-Based Supplements</p>
+                    <h2>Essential Nutrients for Growing Brains</h2>
+                    <p>Well-designed prospective studies show these supplements can help improve emotional regulation, focus, and sleep in children with ADHD and anxiety.</p>
+                </div>
+
+                <div class="supplement-stack">
+                    <article class="supplement-card reveal">
+                        <div>
+                            <h3>Omega-3 Fatty Acids</h3>
+                            <p class="positive-pill">EPA:DHA 2:1 ratio</p>
+                        </div>
+                        <div>
+                            <h4>Benefits</h4>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Improved emotional regulation</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Enhanced focus and attention</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Reduced hyperactivity symptoms</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Better cognitive function</span></div>
+                        </div>
+                        <div>
+                            <h4>Evidence</h4>
+                            <p>Multiple well-designed studies show significant improvements in ADHD symptoms.</p>
+                        </div>
+                    </article>
+
+                    <article class="supplement-card reveal" data-delay="0.1">
+                        <div>
+                            <h3>Magnesium</h3>
+                            <p class="positive-pill">The calming electrolyte</p>
+                        </div>
+                        <div>
+                            <h4>Benefits</h4>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Improved attention and focus</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Better sleep quality</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Reduced anxiety</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Enhanced emotional regulation</span></div>
+                        </div>
+                        <div>
+                            <h4>Evidence</h4>
+                            <p>Clinical trials demonstrate benefits for mental health and behavioral problems.</p>
+                        </div>
+                    </article>
+
+                    <article class="supplement-card reveal" data-delay="0.2">
+                        <div>
+                            <h3>Vitamin D3</h3>
+                            <p class="positive-pill">Essential for brain health</p>
+                        </div>
+                        <div>
+                            <h4>Benefits</h4>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Mood regulation support</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Enhanced cognitive function</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Improved behavioral outcomes</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Immune system support</span></div>
+                        </div>
+                        <div>
+                            <h4>Evidence</h4>
+                            <p>Studies show vitamin D supplementation improves mental health in children with ADHD.</p>
+                        </div>
+                    </article>
+
+                    <article class="supplement-card reveal" data-delay="0.3">
+                        <div>
+                            <h3>Zinc</h3>
+                            <p class="positive-pill">Neurotransmitter support</p>
+                        </div>
+                        <div>
+                            <h4>Benefits</h4>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Enhanced attention span</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Better impulse control</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Improved neurotransmitter function</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Supports brain development</span></div>
+                        </div>
+                        <div>
+                            <h4>Evidence</h4>
+                            <p>Research links zinc supplementation to improved ADHD symptoms.</p>
+                        </div>
+                    </article>
+
+                    <article class="supplement-card reveal" data-delay="0.4">
+                        <div>
+                            <h3>Probiotics</h3>
+                            <p class="positive-pill">Gut-brain connection</p>
+                        </div>
+                        <div>
+                            <h4>Benefits</h4>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Mood stability support</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Reduced anxiety symptoms</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Better emotional regulation</span></div>
+                            <div class="supplement-bullet"><span>&bull;</span><span>Enhanced gut health</span></div>
+                        </div>
+                        <div>
+                            <h4>Evidence</h4>
+                            <p>Emerging research shows the microbiome influences mood and behavior.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="control-message reveal" data-delay="0.5">
+                    Healthy fats and calming electrolytes (magnesium, zinc, vitamin D3) support cognition, sleep, and mood. Well-designed studies take the guesswork out of nutritional support.
+                </div>
+            </div>
+        </section>
+
+        <section class="analogies-section" id="gut-brain">
+            <div class="container">
+                <div class="section-intro reveal">
+                    <p class="positive-pill"><i class="fas fa-heartbeat"></i> Emerging Science</p>
+                    <h2>The Gut-Brain Connection</h2>
+                    <p>Research increasingly shows that gut health plays a crucial role in emotional regulation and mental wellbeing.</p>
+                </div>
+
+                <div class="gut-diagram">
+                    <div class="diagram-card reveal">
+                        <div class="food-card-icon" aria-hidden="true">🦠</div>
+                        <h3>Gut Microbiome</h3>
+                        <p>Trillions of bacteria in the digestive system.</p>
+                    </div>
+                    <div class="diagram-connector reveal" data-delay="0.1">
+                        <p>Gut-Brain Axis</p>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="diagram-card reveal" data-delay="0.2">
+                        <div class="food-card-icon" aria-hidden="true">🧠</div>
+                        <h3>Brain &amp; Mood</h3>
+                        <p>Emotional regulation and behavior.</p>
+                    </div>
+                </div>
+
+                <div class="gut-insight-grid">
+                    <article class="factor-card reveal">
+                        <h4>Early Childhood Impact</h4>
+                        <p>The composition of gut bacteria in early childhood can predict internalizing symptoms like anxiety later in life.</p>
+                    </article>
+                    <article class="factor-card reveal" data-delay="0.1">
+                        <h4>Behavioral Outcomes</h4>
+                        <p>Research shows clear relationships between microbiota development and anxiety or emotional regulation challenges.</p>
+                    </article>
+                </div>
+
+                <div class="control-message reveal" data-delay="0.2">
+                    Supporting gut health through probiotic foods and fiber-rich whole foods may be an important strategy for managing ADHD and anxiety symptoms.
+                </div>
+            </div>
+        </section>
+
+        <section class="rising-tide" id="research">
+            <div class="container">
+                <div class="section-intro reveal">
+                    <p class="evidence-pill"><i class="fas fa-book-open"></i> Evidence-Based</p>
+                    <h2>Scientific Evidence &amp; Research</h2>
+                    <p>Recommendations are backed by well-designed prospective studies and systematic reviews, removing the guesswork from nutritional care.</p>
+                </div>
+
+                <div class="research-accordion">
+                    <article class="research-card reveal" aria-expanded="false">
+                        <button type="button">
+                            <header>
+                                <div>
+                                    <h3>Omega-3 Fatty Acid Research</h3>
+                                    <p>High-quality studies demonstrate the effectiveness of Omega-3 supplementation for children with ADHD.</p>
+                                </div>
+                                <i class="fas fa-chevron-down"></i>
+                            </header>
+                            <div class="research-body">
+                                <div class="research-study">
+                                    <strong>Bloch &amp; Qawasmi (2011)</strong>
+                                    <p>Systematic review and meta-analysis showing Omega-3 fatty acid supplementation significantly improves ADHD symptoms in children.</p>
+                                    <p class="article-meta">J Am Acad Child Adolesc Psychiatry, 50(10), 991–1000</p>
+                                </div>
+                                <div class="research-study">
+                                    <strong>Chang et al. (2018)</strong>
+                                    <p>Comprehensive review confirming the benefits of Omega-3 polyunsaturated fatty acids for ADHD.</p>
+                                    <p class="article-meta">Neuropsychopharmacology, 43(3), 534–545</p>
+                                </div>
+                                <div class="research-study">
+                                    <strong>Chang (2021)</strong>
+                                    <p>Focus review highlighting Omega-3's role in ADHD management.</p>
+                                    <p class="article-meta">Frontiers in Psychiatry</p>
+                                </div>
+                                <div class="research-study">
+                                    <strong>Derbyshire (2017)</strong>
+                                    <p>Evaluation of the therapeutic role of Omega-3/6 fatty acids in children and young people with ADHD.</p>
+                                    <p class="article-meta">J Lipids Health Dis, 16:143</p>
+                                </div>
+                            </div>
+                        </button>
+                    </article>
+
+                    <article class="research-card reveal" aria-expanded="false">
+                        <button type="button">
+                            <header>
+                                <div>
+                                    <h3>Magnesium, Zinc, and Vitamin D Research</h3>
+                                    <p>Clinical trials support the use of these essential nutrients for improving attention, focus, and sleep in children with ADHD.</p>
+                                </div>
+                                <i class="fas fa-chevron-down"></i>
+                            </header>
+                            <div class="research-body">
+                                <div class="research-study">
+                                    <strong>Hemamy et al.</strong>
+                                    <p>Randomized controlled trial demonstrating vitamin D and magnesium supplementation improves mental health and behavioral problems in children with ADHD.</p>
+                                    <p class="article-meta">BMC Pediatrics</p>
+                                </div>
+                                <div class="research-study">
+                                    <strong>El Baza et al.</strong>
+                                    <p>Study showing magnesium supplementation benefits children with attention deficit hyperactivity disorder.</p>
+                                    <p class="article-meta">Egypt J Med Hum Genet</p>
+                                </div>
+                                <div class="research-study">
+                                    <strong>Kalejahi et al.</strong>
+                                    <p>Systematic review examining magnesium status and supplementation effectiveness in children with ADHD.</p>
+                                    <p class="article-meta">J Pediatr Rev</p>
+                                </div>
+                            </div>
+                        </button>
+                    </article>
+
+                    <article class="research-card reveal" aria-expanded="false">
+                        <button type="button">
+                            <header>
+                                <div>
+                                    <h3>Gut Microbiome Research</h3>
+                                    <p>Recent research establishes the crucial connection between gut health and mental health in children.</p>
+                                </div>
+                                <i class="fas fa-chevron-down"></i>
+                            </header>
+                            <div class="research-body">
+                                <div class="research-study">
+                                    <strong>Querdasi et al. (2025)</strong>
+                                    <p>Linking childhood gut microbiome to internalizing symptoms at school age through functional connectome analysis.</p>
+                                    <p class="article-meta">Nature Communications</p>
+                                </div>
+                                <div class="research-study">
+                                    <strong>Ou et al. (2024)</strong>
+                                    <p>Research on gut microbiota development from birth through adolescence and its relationship with anxiety and behavioral difficulties.</p>
+                                    <p class="article-meta">European Child &amp; Adolescent Psychiatry</p>
+                                </div>
+                                <div class="research-study">
+                                    <strong>Fujihara et al.</strong>
+                                    <p>Altered gut microbiota composition is associated with difficulties in emotion regulation in young children.</p>
+                                    <p class="article-meta">Research publication</p>
+                                </div>
+                            </div>
+                        </button>
+                    </article>
+                </div>
+
+                <div class="control-message reveal" data-delay="0.3">
+                    This growing body of research underscores the importance of considering nutrition as a fundamental component of comprehensive ADHD and anxiety management in children.
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section" id="cta">
+            <div class="container">
+                <div class="cta-card reveal">
+                    <div class="section-intro">
+                        <p class="positive-pill"><i class="fas fa-star"></i> Key Takeaways</p>
+                        <h2>Remember These Essential Points</h2>
+                    </div>
+
+                    <div class="cta-grid">
+                        <article class="takeaway-card">
+                            <ul>
+                                <li>Quality nutrition is essential fuel for your child's developing brain.</li>
+                                <li>Avoid processed foods, artificial additives, and sweetened beverages.</li>
+                                <li>Focus on whole foods, proteins, healthy fats, and complex carbohydrates.</li>
+                            </ul>
+                        </article>
+                        <article class="takeaway-card">
+                            <ul>
+                                <li>Consider evidence-based supplements like Omega-3s, magnesium, and vitamin D.</li>
+                                <li>Support gut health through probiotic foods and fiber-rich plants.</li>
+                                <li>Combine nutrition with behavioral strategies and medical support.</li>
+                            </ul>
+                        </article>
+                    </div>
+
+                    <p class="hero-intro">If you're concerned about your child's nutrition and its impact on ADHD or anxiety symptoms, schedule a consultation to develop a comprehensive approach that includes nutritional guidance, behavioral strategies, and medical support when needed.</p>
+
+                    <div class="cta-buttons">
+                        <a class="cta-primary" href="/index.html#contact-form">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
+                        <a class="cta-outline" href="/blog.html">Explore More Insights</a>
+                    </div>
+
+                    <div class="cta-note">Every child is unique. Working with professionals who understand both ADHD/anxiety and nutrition helps you develop a personalized plan that supports thriving.</div>
+                    <div class="final-cheer">Ready, set……..GO!</div>
                 </div>
             </div>
         </section>
@@ -294,7 +1284,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>1-to-1 ADHD & Anxiety Solutions</h3>
+                    <h3>1-to-1 ADHD &amp; Anxiety Solutions</h3>
                     <p>A telemedicine practice dedicated to helping children and adolescents overcome challenges of attention, focus and stress.</p>
                 </div>
                 <div class="footer-section">
@@ -315,12 +1305,98 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 1-to-1 ADHD & Anxiety Solutions. All rights reserved.</p>
+                <p>&copy; 2025 1-to-1 ADHD &amp; Anxiety Solutions. All rights reserved.</p>
                 <p>A division of 1-to-1 Pediatrics</p>
             </div>
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Reading progress bar
+            const progress = document.getElementById('readingProgress');
+            const updateProgress = () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const percent = docHeight > 0 ? (scrollTop / docHeight) : 0;
+                progress.style.transform = `scaleX(${Math.min(percent, 1)})`;
+            };
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            updateProgress();
+
+            // Scroll reveal
+            const revealElements = document.querySelectorAll('.reveal');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const target = entry.target;
+                            const delay = target.dataset.delay ? parseFloat(target.dataset.delay) : 0;
+                            target.style.transitionDelay = `${delay}s`;
+                            target.classList.add('is-visible');
+                            observer.unobserve(target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+                revealElements.forEach(el => observer.observe(el));
+            } else {
+                revealElements.forEach(el => el.classList.add('is-visible'));
+            }
+
+            // Animated stats
+            const statCards = document.querySelectorAll('[data-count]');
+            const startCount = (el) => {
+                const target = parseInt(el.dataset.count, 10);
+                const suffix = el.dataset.suffix || '';
+                const prefix = el.dataset.prefix || '';
+                let current = 0;
+                const step = () => {
+                    current += Math.max(1, Math.ceil(target / 80));
+                    if (current >= target) {
+                        el.textContent = `${prefix}${target}${suffix}`;
+                        return;
+                    }
+                    el.textContent = `${prefix}${current}${suffix}`;
+                    requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+            };
+
+            if ('IntersectionObserver' in window) {
+                const counterObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            startCount(entry.target);
+                            counterObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                statCards.forEach(el => counterObserver.observe(el));
+            } else {
+                statCards.forEach(startCount);
+            }
+
+            // Expandable food cards
+            document.querySelectorAll('[data-expandable]').forEach(card => {
+                card.addEventListener('click', () => {
+                    const expanded = card.getAttribute('data-expanded') === 'true';
+                    card.setAttribute('data-expanded', !expanded);
+                });
+            });
+
+            // Research accordion
+            document.querySelectorAll('.research-card').forEach(card => {
+                const button = card.querySelector('button');
+                button.addEventListener('click', () => {
+                    const expanded = card.getAttribute('aria-expanded') === 'true';
+                    card.setAttribute('aria-expanded', !expanded);
+                });
+            });
+        });
+    </script>
     <script src="/js/script.js"></script>
 </body>
 </html>

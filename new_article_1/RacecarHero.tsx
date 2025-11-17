@@ -86,7 +86,7 @@ export function RacecarHero() {
               </div>
               <h3 className="font-semibold text-lg mb-2">Quality Fuel</h3>
               <p className="text-sm text-muted-foreground">
-                Proper nutrition and whole foods
+                Proper nutrition and wholesome foods
               </p>
             </motion.div>
 

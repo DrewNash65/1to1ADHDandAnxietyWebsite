@@ -510,8 +510,14 @@
             font-weight: 600;
         }
 
+        .food-grid {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
         .nutrition-grid {
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            max-width: 1020px;
+            margin: 0 auto;
         }
 
         .nutrition-card {
@@ -901,12 +907,24 @@
                 padding: 2rem;
             }
 
+            .food-grid,
+            .nutrition-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
             .cta-approach {
                 padding: 2rem;
             }
 
             .takeaway-list {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .food-grid,
+            .nutrition-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
 
@@ -969,7 +987,7 @@
                     <article class="hero-card reveal" data-delay="0.2">
                         <div class="hero-card-icon"><i class="fas fa-gas-pump"></i></div>
                         <h3>Quality Fuel</h3>
-                        <p>Whole foods, fiber, protein, and healthy fats power better focus.</p>
+                        <p>Wholesome foods, fiber, protein, and healthy fats power better focus.</p>
                     </article>
                     <article class="hero-card reveal" data-delay="0.3">
                         <div class="hero-card-icon"><i class="fas fa-gauge-high"></i></div>
@@ -1260,7 +1278,7 @@
                 </div>
 
                 <div class="control-message reveal" data-delay="0.5">
-                    <h3>The Power of Whole Foods</h3>
+                    <h3>The Power of Wholesome Foods</h3>
                     <p><strong>Protein</strong> from meats, eggs, beans and whole grains together, tofu, and hummus will nourish your child, fuel their body, and maintain even blood sugar levels.</p>
                     <p><strong>Fruits and vegetables</strong> (not their juices) have natural fibers that slow down digestion and promote a balanced microbiome in the gut. Research increasingly shows that the gut microbiome can influence not just long-term disease risk but also mood and anxiety levels.</p>
                     <p><strong>Healthy fats</strong> from nuts, fish, and even dairy in moderate amounts are essential for brain development, especially Omega-3s. Fats also slow down digestion, allowing carbohydrates to be absorbed more slowly for sustained energy.</p>
@@ -1428,7 +1446,7 @@
                 </div>
 
                 <div class="control-message reveal" data-delay="0.2">
-                    Supporting gut health through probiotic foods and fiber-rich whole foods may be an important strategy for managing ADHD and anxiety symptoms.
+                    Supporting gut health through probiotic foods and fiber-rich wholesome foods may be an important strategy for managing ADHD and anxiety symptoms.
                 </div>
             </div>
         </section>
@@ -1576,7 +1594,7 @@
                     <div class="takeaway-list">
                         <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Quality nutrition is essential fuel for your child's developing brain.</p></div>
                         <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Avoid processed foods, artificial additives, and sweetened beverages.</p></div>
-                        <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Focus on whole foods, proteins, healthy fats, and complex carbohydrates.</p></div>
+                        <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Focus on wholesome foods, proteins, healthy fats, and complex carbohydrates.</p></div>
                         <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Consider evidence-based supplements like Omega-3s, magnesium, and vitamin D.</p></div>
                         <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Support gut health through probiotic foods and fiber.</p></div>
                         <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Take a comprehensive approach that combines nutrition with other treatment strategies.</p></div>
@@ -1603,34 +1621,6 @@
                 <div class="final-note reveal" data-delay="0.6">
                     <p>Every child is unique. Working with professionals who understand both ADHD/anxiety and nutrition helps you develop a personalized plan that supports thriving.</p>
                     <strong>Ready, set……..GO!</strong>
-                </div>
-            </div>
-        </section>
-
-        <section class="related-articles">
-            <div class="container">
-                <h3>Related Articles</h3>
-                <div class="related-grid">
-                    <div class="blog-card">
-                        <div class="blog-image">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="blog-content-card">
-                            <h3>Understanding ADHD in Children</h3>
-                            <p>Learn to recognize ADHD symptoms and discover effective support strategies.</p>
-                            <a href="understanding-adhd-in-children.html" class="btn btn-outline">Read More</a>
-                        </div>
-                    </div>
-                    <div class="blog-card">
-                        <div class="blog-image">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="blog-content-card">
-                            <h3>Strategies for Managing Anxiety</h3>
-                            <p>Effective coping mechanisms and therapies for childhood anxiety.</p>
-                            <a href="#" class="btn btn-outline">Read More</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

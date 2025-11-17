@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 const keyTakeaways = [
   "Quality nutrition is essential fuel for your child's developing brain",
   "Avoid processed foods, artificial additives, and sweetened beverages",
-  "Focus on whole foods, proteins, healthy fats, and complex carbohydrates",
+  "Focus on wholesome foods, proteins, healthy fats, and complex carbohydrates",
   "Consider evidence-based supplements like Omega-3s, magnesium, and vitamin D",
   "Support gut health through probiotic foods and fiber",
   "Take a comprehensive approach that combines nutrition with other treatment strategies",

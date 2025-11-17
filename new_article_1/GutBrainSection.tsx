@@ -173,7 +173,7 @@ export function GutBrainSection() {
             </p>
             <p className="text-lg leading-relaxed">
               This gut-brain axis appears to play a crucial role in emotional regulation and behavioral outcomes. 
-              Supporting gut health through probiotic foods and fiber-rich whole foods may be an important strategy 
+              Supporting gut health through probiotic foods and fiber-rich wholesome foods may be an important strategy 
               for managing ADHD and anxiety symptoms.
             </p>
           </div>

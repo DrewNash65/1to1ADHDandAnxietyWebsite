@@ -289,6 +289,24 @@ function initializePatientInquiryForm() {
     const form = document.getElementById('patientInquiryForm');
     if (!form) return;
 
+    // Handle "How did you hear about us?" dropdown
+    const referralSource = document.getElementById('referralSource');
+    const otherReferralGroup = document.getElementById('otherReferralGroup');
+    const otherReferral = document.getElementById('otherReferral');
+
+    if (referralSource && otherReferralGroup && otherReferral) {
+        referralSource.addEventListener('change', function() {
+            if (this.value === 'Other') {
+                otherReferralGroup.style.display = 'block';
+                otherReferral.required = true;
+            } else {
+                otherReferralGroup.style.display = 'none';
+                otherReferral.required = false;
+                otherReferral.value = '';
+            }
+        });
+    }
+
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
@@ -314,13 +332,16 @@ function initializePatientInquiryForm() {
                 email: formData.get('email'),
                 patientName: formData.get('patientName'),
                 dateOfBirth: formData.get('dateOfBirth'),
+                referralSource: formData.get('referralSource'),
+                otherReferral: formData.get('otherReferral'),
                 concerns: formData.get('concerns'),
                 submittedAt: new Date().toISOString()
             };
 
             // Validate required fields
             if (!inquiryData.parentName || !inquiryData.phoneNumber || !inquiryData.email ||
-                !inquiryData.patientName || !inquiryData.dateOfBirth || !inquiryData.concerns) {
+                !inquiryData.patientName || !inquiryData.dateOfBirth || !inquiryData.referralSource ||
+                !inquiryData.concerns || (inquiryData.referralSource === 'Other' && !inquiryData.otherReferral)) {
                 throw new Error('Please fill in all required fields.');
             }
 

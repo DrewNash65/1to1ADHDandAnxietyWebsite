@@ -16,11 +16,16 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { parentName, phoneNumber, email, patientName, dateOfBirth, concerns } = req.body;
+        const { parentName, phoneNumber, email, patientName, dateOfBirth, referralSource, otherReferral, concerns } = req.body;
 
         // Validate required fields
-        if (!parentName || !phoneNumber || !email || !patientName || !dateOfBirth || !concerns) {
+        if (!parentName || !phoneNumber || !email || !patientName || !dateOfBirth || !referralSource || !concerns) {
             return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        // If Other is selected, validate that otherReferral is provided
+        if (referralSource === 'Other' && !otherReferral) {
+            return res.status(400).json({ error: 'Please specify how you heard about us' });
         }
 
         // Validate email format
@@ -30,6 +35,8 @@ export default async function handler(req, res) {
         }
 
         // Create email content
+        const referralText = referralSource === 'Other' ? `${referralSource}: ${otherReferral}` : referralSource;
+
         const emailContent = `
 New Patient Inquiry - 1-to-1 ADHD & Anxiety Solutions
 
@@ -41,6 +48,9 @@ PARENT/GUARDIAN INFORMATION:
 PATIENT INFORMATION:
 • Name: ${patientName}
 • Date of Birth: ${dateOfBirth}
+
+HOW THEY HEARD ABOUT US:
+• ${referralText}
 
 CONCERNS:
 ${concerns}

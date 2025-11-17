@@ -592,7 +592,8 @@ footer {
 
 /* FAQ Page Styles */
 .page-hero {
-    background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+    /* Use brand gradient (teal → blue) to match site color scheme */
+    background: linear-gradient(135deg, var(--primary-teal), var(--primary-blue));
     color: var(--white);
     padding: 140px 0 80px;
     text-align: center;

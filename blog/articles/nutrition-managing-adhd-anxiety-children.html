@@ -99,6 +99,10 @@
         .immersive-article {
             overflow: hidden;
             padding-top: 140px; /* prevent fixed header overlap */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
         }
 
         .immersive-article section {
@@ -106,13 +110,37 @@
         }
 
         .hero-grid {
+            position: relative;
             min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 8rem 0 5rem;
+            overflow: hidden;
             background: radial-gradient(circle at top, rgba(14,138,155,0.12), transparent 55%), var(--warm-cream);
+        }
+
+        .hero-grid::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(14,138,155,0.08), rgba(95,184,120,0.08));
+            opacity: 0.35;
+        }
+
+        .hero-grid::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+            background-image: linear-gradient(rgba(10,42,58,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(10,42,58,0.6) 1px, transparent 1px);
+            background-size: 55px 55px;
+        }
+
+        .hero-grid .container {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content {
@@ -217,6 +245,34 @@
             100% { opacity: 0; }
         }
 
+        .section-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-chip.section-chip--primary {
+            background: rgba(14,138,155,0.12);
+            color: var(--primary-dark);
+        }
+
+        .section-chip.section-chip--accent {
+            background: rgba(95,184,120,0.12);
+            color: var(--accent-dark);
+        }
+
+        .section-chip.section-chip--warn {
+            background: rgba(232,111,86,0.12);
+            color: var(--secondary-dark);
+        }
+
         .section-intro {
             text-align: center;
             margin-bottom: 3rem;
@@ -250,10 +306,16 @@
             background: #fff;
         }
 
+        .analogy-body {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
         .analogy-paragraph {
             font-size: 1.2rem;
             line-height: 1.8;
             margin-bottom: 1.5rem;
+            color: #1a1d29;
         }
 
         .analogy-highlight {
@@ -282,6 +344,31 @@
             padding: 2rem;
             border: 1px solid rgba(20, 33, 61, 0.08);
             box-shadow: 0 20px 40px rgba(4, 46, 76, 0.08);
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .stat-card-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .stat-card-icon.primary { background: rgba(14,138,155,0.12); color: var(--primary); }
+        .stat-card-icon.secondary { background: rgba(232,111,86,0.12); color: var(--secondary-dark); }
+
+        .stat-card-details h3 {
+            margin: 0 0 0.5rem;
+        }
+
+        .stat-card-details p {
+            color: #4a5568;
+            font-size: 1rem;
         }
 
         .stat-accent {
@@ -290,34 +377,49 @@
             color: var(--secondary);
         }
 
+        .factor-panel {
+            background: #fff;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(20,33,61,0.08);
+            box-shadow: 0 15px 40px rgba(4, 46, 76, 0.06);
+        }
+
+        .factor-panel h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+        }
+
         .factor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
         }
 
         .factor-card {
             text-align: center;
-            padding: 2rem;
-            border-radius: 1.5rem;
-            background: rgba(255,255,255,0.85);
+            padding: 1.75rem;
+            border-radius: 1.25rem;
+            background: rgba(255,255,255,0.95);
             border: 1px solid rgba(20,33,61,0.06);
+            box-shadow: 0 12px 30px rgba(20,33,61,0.06);
         }
 
-        .factor-icon {
+        .factor-symbol {
             width: 72px;
             height: 72px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
             font-size: 2rem;
+            margin: 0 auto 1rem;
         }
 
-        .factor-icon.tech { background: rgba(110, 143, 175, 0.15); }
-        .factor-icon.genetics { background: rgba(226, 232, 240, 0.8); }
-        .factor-icon.diet { background: rgba(95, 184, 120, 0.15); }
+        .factor-symbol.tech { background: rgba(110, 143, 175, 0.15); color: #1f2937; }
+        .factor-symbol.genetics { background: rgba(226, 232, 240, 0.8); color: #1f2937; }
+        .factor-symbol.diet { background: rgba(95, 184, 120, 0.15); color: var(--accent-dark); }
 
         .control-message {
             margin-top: 3rem;
@@ -443,10 +545,47 @@
         }
 
         .supplement-card {
-            padding: 1.75rem;
+            padding: 2rem;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
+            background: #fff;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(20,33,61,0.08);
+            box-shadow: 0 20px 50px rgba(20,33,61,0.08);
+        }
+
+        .supplement-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .supplement-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(14,138,155,0.12);
+            color: var(--primary-dark);
+        }
+
+        .supplement-card[data-theme="accent"] .supplement-icon {
+            background: rgba(95,184,120,0.15);
+            color: var(--accent-dark);
+        }
+
+        .supplement-tag {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .supplement-card[data-theme="accent"] .supplement-tag {
+            color: var(--accent-dark);
         }
 
         .supplement-bullet {
@@ -471,7 +610,7 @@
         .diagram-card {
             text-align: center;
             border-radius: 1.5rem;
-            padding: 2rem;
+            padding: 2.5rem;
             background: #fff;
             border: 2px solid rgba(14,138,155,0.2);
             box-shadow: 0 20px 40px rgba(14,138,155,0.08);
@@ -479,6 +618,38 @@
 
         .diagram-connector {
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .connector-pill {
+            background: rgba(14,138,155,0.1);
+            color: var(--primary-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .connector-arrow {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: arrow-glide 2s ease-in-out infinite;
+        }
+
+        .connector-arrow.reverse {
+            transform: rotate(180deg);
+            color: var(--accent-dark);
+            animation-delay: 1s;
+        }
+
+        @keyframes arrow-glide {
+            0% { transform: translateX(0); opacity: 0.8; }
+            50% { transform: translateX(6px); opacity: 1; }
+            100% { transform: translateX(0); opacity: 0.8; }
         }
 
         .gut-insight-grid {
@@ -488,27 +659,49 @@
             margin-bottom: 2.5rem;
         }
 
-        .research-accordion {
-            gap: 1rem;
+        .insight-card {
+            background: #fff;
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            border: 1px solid rgba(20,33,61,0.08);
+            box-shadow: 0 15px 30px rgba(20,33,61,0.06);
         }
 
-        .research-card header {
-            padding: 1.5rem;
-            border-bottom: 1px solid rgba(20,33,61,0.06);
+        .research-accordion {
             display: flex;
-            gap: 1rem;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .research-card {
+            background: #fff;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(20,33,61,0.08);
+            box-shadow: 0 20px 40px rgba(20,33,61,0.08);
+            overflow: hidden;
         }
 
         .research-card button {
             all: unset;
             cursor: pointer;
             width: 100%;
+            padding: 1.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
         }
 
-        .research-card[aria-expanded="true"] .research-body {
-            padding: 1.5rem;
+        .research-card button:hover {
+            background: rgba(20,33,61,0.02);
+        }
+
+        .research-card button h3 {
+            margin-bottom: 0.35rem;
+        }
+
+        .research-card button p {
+            color: #4a5568;
         }
 
         .research-body {
@@ -516,35 +709,130 @@
             overflow: hidden;
             transition: max-height 0.35s ease, padding 0.3s ease;
             background: rgba(20,33,61,0.02);
-            padding: 0 1.5rem;
+            padding: 0 1.75rem;
+        }
+
+        .research-card[aria-expanded="true"] .research-body {
+            padding: 0 1.75rem 1.75rem;
         }
 
         .research-study {
             background: #fff;
             border-radius: 1rem;
             padding: 1rem;
-            margin-bottom: 1rem;
+            margin-top: 1rem;
             border: 1px solid rgba(14,138,155,0.12);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .study-index {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(14,138,155,0.12);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
         }
 
         .cta-section {
+            position: relative;
             padding: 5rem 0;
             background: linear-gradient(135deg, rgba(14,138,155,0.08), rgba(95,184,120,0.08));
+            overflow: hidden;
         }
 
-        .cta-card {
+        .cta-section::before,
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.35;
+        }
+
+        .cta-section::before {
+            background: rgba(14,138,155,0.5);
+            top: -100px;
+            left: -80px;
+        }
+
+        .cta-section::after {
+            background: rgba(95,184,120,0.5);
+            bottom: -120px;
+            right: -60px;
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .key-takeaways {
+            margin-bottom: 3rem;
+        }
+
+        .takeaway-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .takeaway-item {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            padding: 1rem 1.25rem;
+            background: #fff;
+            border-radius: 1rem;
+            border: 1px solid rgba(20,33,61,0.08);
+            box-shadow: 0 10px 25px rgba(20,33,61,0.08);
+        }
+
+        .takeaway-item i {
+            color: var(--accent-dark);
+            margin-top: 0.2rem;
+        }
+
+        .cta-core {
             background: #fff;
             border-radius: 2rem;
             padding: 3rem;
-            box-shadow: 0 40px 80px rgba(14, 138, 155, 0.15);
+            text-align: center;
             border: 1px solid rgba(14, 138, 155, 0.12);
+            box-shadow: 0 30px 80px rgba(14, 138, 155, 0.15);
+            margin-bottom: 3rem;
         }
 
-        .cta-buttons {
+        .cta-icon-ring {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: #fff;
+            font-size: 2rem;
+            box-shadow: 0 15px 40px rgba(14,138,155,0.25);
+        }
+
+        .cta-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
             justify-content: center;
+            align-items: center;
             margin-top: 2rem;
         }
 
@@ -569,22 +857,33 @@
         .cta-outline {
             border: 2px solid rgba(14,138,155,0.2);
             color: var(--primary-dark);
+            background: rgba(255,255,255,0.6);
         }
 
-        .cta-note {
-            margin-top: 3rem;
-            font-style: italic;
+        .cta-approach {
+            background: #fff;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(20,33,61,0.08);
+            padding: 2.5rem;
+            box-shadow: 0 25px 60px rgba(20,33,61,0.08);
+            margin-bottom: 2.5rem;
+        }
+
+        .final-note {
+            text-align: center;
             color: #4a5568;
-            text-align: center;
+            font-style: italic;
+            max-width: 780px;
+            margin: 0 auto;
         }
 
-        .final-cheer {
-            margin-top: 2rem;
-            text-align: center;
+        .final-note strong {
+            display: block;
+            margin-top: 1rem;
             font-size: 1.5rem;
-            font-weight: 700;
+            color: var(--primary-dark);
+            font-style: normal;
         }
-
         @media (max-width: 768px) {
             .hero-grid {
                 padding: 6rem 1rem 3rem;
@@ -598,8 +897,16 @@
                 grid-template-columns: 1fr;
             }
 
-            .cta-card {
+            .cta-core {
                 padding: 2rem;
+            }
+
+            .cta-approach {
+                padding: 2rem;
+            }
+
+            .takeaway-list {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -607,12 +914,12 @@
             .reveal,
             .hero-card,
             .food-to-avoid-card,
-            .takeaway-card {
+            .takeaway-item {
                 transition: none !important;
             }
 
             .scroll-indicator-dot,
-            .cta-card::before {
+            .connector-arrow {
                 animation: none !important;
             }
         }
@@ -649,8 +956,7 @@
         <section class="hero-grid">
             <div class="container">
                 <div class="hero-content reveal">
-                    <p class="important-pill">Nutrition &amp; Lifestyle</p>
-                    <h1 class="hero-title">The Importance of <span class="hero-highlight">Nutrition</span> in Managing ADHD and Anxiety</h1>
+                    <h1 class="hero-title">The Importance of <span class="hero-highlight">Nutrition</span><br>in Managing ADHD and Anxiety</h1>
                     <p class="hero-intro">Discover how proper nutrition can fuel your child's brain for optimal focus and emotional regulation. We transform evidence-based strategies into an immersive guide you can act on today.</p>
                 </div>
 
@@ -683,18 +989,14 @@
 
         <section class="analogies-section">
             <div class="container">
-                <div class="section-intro reveal">
-                    <p class="positive-pill">Fuel Matters</p>
-                    <h2>From Racecars to Real Life</h2>
-                    <p>If you built the racecar of your dreams, you would never fill the tank with low-quality fuel. The same holds true for your child's brain.</p>
-                </div>
+                <div class="analogy-body">
+                    <p class="analogy-paragraph reveal">If I was to build a racecar, I would want all the components to be of the highest quality. The steering, the suspension and the brakes would need to be finely tuned to maximize the handling and ride. Most importantly, if I had a high-performance engine to power that race car, I would put nothing but the best quality fuel in the tank.</p>
 
-                <p class="analogy-paragraph reveal">If I was to build a racecar, I would want all the components to be of the highest quality. The steering, the suspension and the brakes would need to be finely tuned to maximize the handling and ride. Most importantly, if I had a high-performance engine to power that race car, I would put nothing but the best quality fuel in the tank.</p>
+                    <p class="analogy-paragraph reveal" data-delay="0.1">If I went to the trouble of building the race car of my dreams and put low quality fuel in there, I should not be disappointed if the car was not a contender. To go to all that effort and then to not give the finely tuned engine the fuel it deserves, and needs would be ridiculous.</p>
 
-                <p class="analogy-paragraph reveal" data-delay="0.1">If I went to the trouble of building the race car of my dreams and put low quality fuel in there, I should not be disappointed if the car was not a contender. To go to all that effort and then to not give the finely tuned engine the fuel it deserves, and needs would be ridiculous.</p>
-
-                <div class="analogy-highlight reveal" data-delay="0.2">
-                    Don't expect the engine to run optimally if the fuel is of poor quality.
+                    <div class="analogy-highlight reveal" data-delay="0.2">
+                        Don't expect the engine to run optimally if the fuel is of poor quality.
+                    </div>
                 </div>
             </div>
         </section>
@@ -702,44 +1004,57 @@
         <section class="rising-tide">
             <div class="container">
                 <div class="section-intro reveal">
-                    <p class="important-pill">The Rising Tide</p>
-                    <h2>The Increasing Rates of ADHD &amp; Anxiety</h2>
-                    <p>There has been a startling increase in both ADHD and anxiety in the pediatric population over the past 10-15 years, accelerated by the pandemic.</p>
+                    <h2>The Rising Tide of ADHD &amp; Anxiety</h2>
+                    <p>There has been a startling increase in both Attention Deficit Hyperactivity Disorder (ADHD) and anxiety in the pediatric population over the past 10-15 years. The pandemic accelerated trends that were already underway.</p>
                 </div>
 
                 <div class="stat-grid">
                     <article class="stat-card reveal">
-                        <div class="stat-accent" data-count="15" data-suffix="+">0</div>
-                        <h3>Years of Increase</h3>
-                        <p>Rates were climbing even before the pandemic, which worsened things exponentially.</p>
+                        <div class="stat-card-icon secondary">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-card-details">
+                            <div class="stat-accent" data-count="15" data-suffix="+">0</div>
+                            <h3>Years of Increase</h3>
+                            <p>Rates have been climbing even before the pandemic, which worsened things exponentially.</p>
+                        </div>
                     </article>
+
                     <article class="stat-card reveal" data-delay="0.1">
-                        <div class="stat-accent" data-count="3" data-prefix="">0</div>
-                        <h3>Major Contributors</h3>
-                        <p>Technology, genetics, and nutrition all play significant roles in how children feel and function.</p>
+                        <div class="stat-card-icon primary">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="stat-card-details">
+                            <div class="stat-accent">Multiple</div>
+                            <h3>Contributing Factors</h3>
+                            <p>Technology, genetics, and nutrition all play significant roles in how children feel and function.</p>
+                        </div>
                     </article>
                 </div>
 
-                <div class="factor-grid">
-                    <div class="factor-card reveal">
-                        <div class="factor-icon tech"><i class="fas fa-mobile-alt"></i></div>
-                        <h4>Technology &amp; Screens</h4>
-                        <p>Social media and constant screen time are frequently implicated factors.</p>
-                    </div>
-                    <div class="factor-card reveal" data-delay="0.1">
-                        <div class="factor-icon genetics"><i class="fas fa-dna"></i></div>
-                        <h4>Genetic Factors</h4>
-                        <p>Hereditary predisposition influences ADHD and anxiety susceptibility.</p>
-                    </div>
-                    <div class="factor-card reveal" data-delay="0.2">
-                        <div class="factor-icon diet"><i class="fas fa-apple-alt"></i></div>
-                        <h4>Diet &amp; Nutrition</h4>
-                        <p>The often-overlooked contributor that deserves much more focus.</p>
+                <div class="factor-panel reveal" data-delay="0.2">
+                    <h3>Why Is This Happening?</h3>
+                    <div class="factor-grid">
+                        <article class="factor-card">
+                            <div class="factor-symbol tech"><i class="fas fa-mobile-screen-button"></i></div>
+                            <h4>Technology &amp; Screens</h4>
+                            <p>Social media and constant screen time are frequently implicated factors.</p>
+                        </article>
+                        <article class="factor-card">
+                            <div class="factor-symbol genetics"><i class="fas fa-dna"></i></div>
+                            <h4>Genetic Factors</h4>
+                            <p>Hereditary predisposition influences ADHD and anxiety susceptibility.</p>
+                        </article>
+                        <article class="factor-card">
+                            <div class="factor-symbol diet"><i class="fas fa-apple-alt"></i></div>
+                            <h4>Diet &amp; Nutrition</h4>
+                            <p>The often-overlooked contributor that deserves more attention.</p>
+                        </article>
                     </div>
                 </div>
 
-                <div class="control-message reveal" data-delay="0.3">
-                    Processed and ultra-processed foods, high fructose corn syrup, food additives and dyes contribute to obesity, type 2 diabetes, metabolic syndrome, and prevent children from functioning at their best.
+                <div class="control-message reveal" data-delay="0.4">
+                    Processed and "ultra" processed foods, high fructose corn syrup, food additives and dyes contribute to countless health issues. Many of the additives widely used in the U.S. are not legal in Europe—and they impact attention, focus, and emotional health too.
                 </div>
             </div>
         </section>
@@ -747,9 +1062,9 @@
         <section class="analogies-section" id="foods-to-avoid">
             <div class="container">
                 <div class="section-intro reveal">
-                    <p class="important-pill"><i class="fas fa-triangle-exclamation"></i> Important to Know</p>
+                    <div class="section-chip section-chip--warn"><i class="fas fa-triangle-exclamation"></i> Important to Know</div>
                     <h2>What to Avoid in Your Child's Diet</h2>
-                    <p>These foods can disrupt blood sugar stability, interfere with emotional regulation, and undermine focus.</p>
+                    <p>These foods and ingredients can negatively impact focus, emotional regulation, and overall brain function.</p>
                 </div>
 
                 <div class="food-grid">
@@ -839,7 +1154,7 @@
                 </div>
 
                 <div class="control-message reveal" data-delay="0.6">
-                    Read labels carefully. Cheese doesn't come from a can! Anything with HFCS or synthetic dyes toward the top of the label belongs back on the shelf.
+                    Read labels carefully. Cheese doesn't come from a can! Anything that has "high fructose corn syrup" or something similar toward the top of the ingredient list should be put back on the shelf. These chemicals that are making the American population sick are also making our children not function at their best.
                 </div>
             </div>
         </section>
@@ -847,7 +1162,7 @@
         <section class="analogies-section" id="foods-to-include">
             <div class="container">
                 <div class="section-intro reveal">
-                    <p class="positive-pill"><i class="fas fa-wand-magic-sparkles"></i> Fuel for Success</p>
+                    <div class="section-chip section-chip--accent"><i class="fas fa-wand-magic-sparkles"></i> Fuel for Success</div>
                     <h2>What to Include in Your Child's Diet</h2>
                     <p>These nutritional building blocks provide the foundation for better focus, emotional regulation, and overall wellbeing.</p>
                 </div>
@@ -945,7 +1260,10 @@
                 </div>
 
                 <div class="control-message reveal" data-delay="0.5">
-                    <strong>Protein</strong> fuels steady blood sugar. <strong>Fruits and vegetables</strong> provide fiber for a balanced microbiome. <strong>Healthy fats</strong> slow digestion so carbs absorb more slowly for sustained energy.
+                    <h3>The Power of Whole Foods</h3>
+                    <p><strong>Protein</strong> from meats, eggs, beans and whole grains together, tofu, and hummus will nourish your child, fuel their body, and maintain even blood sugar levels.</p>
+                    <p><strong>Fruits and vegetables</strong> (not their juices) have natural fibers that slow down digestion and promote a balanced microbiome in the gut. Research increasingly shows that the gut microbiome can influence not just long-term disease risk but also mood and anxiety levels.</p>
+                    <p><strong>Healthy fats</strong> from nuts, fish, and even dairy in moderate amounts are essential for brain development, especially Omega-3s. Fats also slow down digestion, allowing carbohydrates to be absorbed more slowly for sustained energy.</p>
                 </div>
             </div>
         </section>
@@ -953,16 +1271,19 @@
         <section class="rising-tide" id="supplements">
             <div class="container">
                 <div class="section-intro reveal">
-                    <p class="evidence-pill"><i class="fas fa-capsules"></i> Evidence-Based Supplements</p>
+                    <div class="section-chip section-chip--primary"><i class="fas fa-capsules"></i> Evidence-Based Supplements</div>
                     <h2>Essential Nutrients for Growing Brains</h2>
                     <p>Well-designed prospective studies show these supplements can help improve emotional regulation, focus, and sleep in children with ADHD and anxiety.</p>
                 </div>
 
                 <div class="supplement-stack">
-                    <article class="supplement-card reveal">
-                        <div>
-                            <h3>Omega-3 Fatty Acids</h3>
-                            <p class="positive-pill">EPA:DHA 2:1 ratio</p>
+                    <article class="supplement-card reveal" data-theme="primary">
+                        <div class="supplement-card-header">
+                            <div class="supplement-icon"><i class="fas fa-brain"></i></div>
+                            <div>
+                                <h3>Omega-3 Fatty Acids</h3>
+                                <p class="supplement-tag">EPA:DHA 2:1 ratio</p>
+                            </div>
                         </div>
                         <div>
                             <h4>Benefits</h4>
@@ -977,10 +1298,13 @@
                         </div>
                     </article>
 
-                    <article class="supplement-card reveal" data-delay="0.1">
-                        <div>
-                            <h3>Magnesium</h3>
-                            <p class="positive-pill">The calming electrolyte</p>
+                    <article class="supplement-card reveal" data-delay="0.1" data-theme="accent">
+                        <div class="supplement-card-header">
+                            <div class="supplement-icon"><i class="fas fa-moon"></i></div>
+                            <div>
+                                <h3>Magnesium</h3>
+                                <p class="supplement-tag">The calming electrolyte</p>
+                            </div>
                         </div>
                         <div>
                             <h4>Benefits</h4>
@@ -995,10 +1319,13 @@
                         </div>
                     </article>
 
-                    <article class="supplement-card reveal" data-delay="0.2">
-                        <div>
-                            <h3>Vitamin D3</h3>
-                            <p class="positive-pill">Essential for brain health</p>
+                    <article class="supplement-card reveal" data-delay="0.2" data-theme="primary">
+                        <div class="supplement-card-header">
+                            <div class="supplement-icon"><i class="fas fa-bolt"></i></div>
+                            <div>
+                                <h3>Vitamin D3</h3>
+                                <p class="supplement-tag">Essential for brain health</p>
+                            </div>
                         </div>
                         <div>
                             <h4>Benefits</h4>
@@ -1013,10 +1340,13 @@
                         </div>
                     </article>
 
-                    <article class="supplement-card reveal" data-delay="0.3">
-                        <div>
-                            <h3>Zinc</h3>
-                            <p class="positive-pill">Neurotransmitter support</p>
+                    <article class="supplement-card reveal" data-delay="0.3" data-theme="accent">
+                        <div class="supplement-card-header">
+                            <div class="supplement-icon"><i class="fas fa-atom"></i></div>
+                            <div>
+                                <h3>Zinc</h3>
+                                <p class="supplement-tag">Neurotransmitter support</p>
+                            </div>
                         </div>
                         <div>
                             <h4>Benefits</h4>
@@ -1031,10 +1361,13 @@
                         </div>
                     </article>
 
-                    <article class="supplement-card reveal" data-delay="0.4">
-                        <div>
-                            <h3>Probiotics</h3>
-                            <p class="positive-pill">Gut-brain connection</p>
+                    <article class="supplement-card reveal" data-delay="0.4" data-theme="accent">
+                        <div class="supplement-card-header">
+                            <div class="supplement-icon"><i class="fas fa-heart"></i></div>
+                            <div>
+                                <h3>Probiotics</h3>
+                                <p class="supplement-tag">Gut-brain connection</p>
+                            </div>
                         </div>
                         <div>
                             <h4>Benefits</h4>
@@ -1051,7 +1384,8 @@
                 </div>
 
                 <div class="control-message reveal" data-delay="0.5">
-                    Healthy fats and calming electrolytes (magnesium, zinc, vitamin D3) support cognition, sleep, and mood. Well-designed studies take the guesswork out of nutritional support.
+                    <p>Healthy fats, especially Omega fatty acids, are crucial for brain development. Several well-constructed studies show that supplementing with specific Omega-3 fatty acids (EPA to DHA in a 2:1 or higher ratio) can help improve emotional regulation and focus in children.</p>
+                    <p>Similarly, supplementing with vitamin D3, magnesium, and zinc—the calming electrolytes—supports attention, focus, and sleep. Relying on well-designed prospective studies helps take the guesswork out of providing optimal nutrition for your children.</p>
                 </div>
             </div>
         </section>
@@ -1059,7 +1393,7 @@
         <section class="analogies-section" id="gut-brain">
             <div class="container">
                 <div class="section-intro reveal">
-                    <p class="positive-pill"><i class="fas fa-heartbeat"></i> Emerging Science</p>
+                    <div class="section-chip section-chip--accent"><i class="fas fa-heartbeat"></i> Emerging Science</div>
                     <h2>The Gut-Brain Connection</h2>
                     <p>Research increasingly shows that gut health plays a crucial role in emotional regulation and mental wellbeing.</p>
                 </div>
@@ -1071,8 +1405,9 @@
                         <p>Trillions of bacteria in the digestive system.</p>
                     </div>
                     <div class="diagram-connector reveal" data-delay="0.1">
-                        <p>Gut-Brain Axis</p>
-                        <i class="fas fa-arrow-right"></i>
+                        <span class="connector-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <div class="connector-pill">Gut-Brain Axis</div>
+                        <span class="connector-arrow reverse"><i class="fas fa-arrow-right"></i></span>
                     </div>
                     <div class="diagram-card reveal" data-delay="0.2">
                         <div class="food-card-icon" aria-hidden="true">🧠</div>
@@ -1082,11 +1417,11 @@
                 </div>
 
                 <div class="gut-insight-grid">
-                    <article class="factor-card reveal">
+                    <article class="insight-card reveal">
                         <h4>Early Childhood Impact</h4>
                         <p>The composition of gut bacteria in early childhood can predict internalizing symptoms like anxiety later in life.</p>
                     </article>
-                    <article class="factor-card reveal" data-delay="0.1">
+                    <article class="insight-card reveal" data-delay="0.1">
                         <h4>Behavioral Outcomes</h4>
                         <p>Research shows clear relationships between microbiota development and anxiety or emotional regulation challenges.</p>
                     </article>
@@ -1101,7 +1436,7 @@
         <section class="rising-tide" id="research">
             <div class="container">
                 <div class="section-intro reveal">
-                    <p class="evidence-pill"><i class="fas fa-book-open"></i> Evidence-Based</p>
+                    <div class="section-chip section-chip--primary"><i class="fas fa-book-open"></i> Evidence-Based</div>
                     <h2>Scientific Evidence &amp; Research</h2>
                     <p>Recommendations are backed by well-designed prospective studies and systematic reviews, removing the guesswork from nutritional care.</p>
                 </div>
@@ -1109,94 +1444,118 @@
                 <div class="research-accordion">
                     <article class="research-card reveal" aria-expanded="false">
                         <button type="button">
-                            <header>
+                            <div>
+                                <h3>Omega-3 Fatty Acid Research</h3>
+                                <p>High-quality studies demonstrate the effectiveness of Omega-3 supplementation for children with ADHD.</p>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="research-body">
+                            <div class="research-study">
+                                <div class="study-index">1</div>
                                 <div>
-                                    <h3>Omega-3 Fatty Acid Research</h3>
-                                    <p>High-quality studies demonstrate the effectiveness of Omega-3 supplementation for children with ADHD.</p>
-                                </div>
-                                <i class="fas fa-chevron-down"></i>
-                            </header>
-                            <div class="research-body">
-                                <div class="research-study">
                                     <strong>Bloch &amp; Qawasmi (2011)</strong>
                                     <p>Systematic review and meta-analysis showing Omega-3 fatty acid supplementation significantly improves ADHD symptoms in children.</p>
                                     <p class="article-meta">J Am Acad Child Adolesc Psychiatry, 50(10), 991–1000</p>
                                 </div>
-                                <div class="research-study">
+                            </div>
+                            <div class="research-study">
+                                <div class="study-index">2</div>
+                                <div>
                                     <strong>Chang et al. (2018)</strong>
                                     <p>Comprehensive review confirming the benefits of Omega-3 polyunsaturated fatty acids for ADHD.</p>
                                     <p class="article-meta">Neuropsychopharmacology, 43(3), 534–545</p>
                                 </div>
-                                <div class="research-study">
+                            </div>
+                            <div class="research-study">
+                                <div class="study-index">3</div>
+                                <div>
                                     <strong>Chang (2021)</strong>
                                     <p>Focus review highlighting Omega-3's role in ADHD management.</p>
                                     <p class="article-meta">Frontiers in Psychiatry</p>
                                 </div>
-                                <div class="research-study">
+                            </div>
+                            <div class="research-study">
+                                <div class="study-index">4</div>
+                                <div>
                                     <strong>Derbyshire (2017)</strong>
                                     <p>Evaluation of the therapeutic role of Omega-3/6 fatty acids in children and young people with ADHD.</p>
                                     <p class="article-meta">J Lipids Health Dis, 16:143</p>
                                 </div>
                             </div>
-                        </button>
+                        </div>
                     </article>
 
                     <article class="research-card reveal" aria-expanded="false">
                         <button type="button">
-                            <header>
+                            <div>
+                                <h3>Magnesium, Zinc, and Vitamin D Research</h3>
+                                <p>Clinical trials support the use of these essential nutrients for improving attention, focus, and sleep in children with ADHD.</p>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="research-body">
+                            <div class="research-study">
+                                <div class="study-index">1</div>
                                 <div>
-                                    <h3>Magnesium, Zinc, and Vitamin D Research</h3>
-                                    <p>Clinical trials support the use of these essential nutrients for improving attention, focus, and sleep in children with ADHD.</p>
-                                </div>
-                                <i class="fas fa-chevron-down"></i>
-                            </header>
-                            <div class="research-body">
-                                <div class="research-study">
                                     <strong>Hemamy et al.</strong>
                                     <p>Randomized controlled trial demonstrating vitamin D and magnesium supplementation improves mental health and behavioral problems in children with ADHD.</p>
                                     <p class="article-meta">BMC Pediatrics</p>
                                 </div>
-                                <div class="research-study">
+                            </div>
+                            <div class="research-study">
+                                <div class="study-index">2</div>
+                                <div>
                                     <strong>El Baza et al.</strong>
                                     <p>Study showing magnesium supplementation benefits children with attention deficit hyperactivity disorder.</p>
                                     <p class="article-meta">Egypt J Med Hum Genet</p>
                                 </div>
-                                <div class="research-study">
+                            </div>
+                            <div class="research-study">
+                                <div class="study-index">3</div>
+                                <div>
                                     <strong>Kalejahi et al.</strong>
                                     <p>Systematic review examining magnesium status and supplementation effectiveness in children with ADHD.</p>
                                     <p class="article-meta">J Pediatr Rev</p>
                                 </div>
                             </div>
-                        </button>
+                        </div>
                     </article>
 
                     <article class="research-card reveal" aria-expanded="false">
                         <button type="button">
-                            <header>
+                            <div>
+                                <h3>Gut Microbiome Research</h3>
+                                <p>Recent research establishes the crucial connection between gut health and mental health in children.</p>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="research-body">
+                            <div class="research-study">
+                                <div class="study-index">1</div>
                                 <div>
-                                    <h3>Gut Microbiome Research</h3>
-                                    <p>Recent research establishes the crucial connection between gut health and mental health in children.</p>
-                                </div>
-                                <i class="fas fa-chevron-down"></i>
-                            </header>
-                            <div class="research-body">
-                                <div class="research-study">
                                     <strong>Querdasi et al. (2025)</strong>
                                     <p>Linking childhood gut microbiome to internalizing symptoms at school age through functional connectome analysis.</p>
                                     <p class="article-meta">Nature Communications</p>
                                 </div>
-                                <div class="research-study">
+                            </div>
+                            <div class="research-study">
+                                <div class="study-index">2</div>
+                                <div>
                                     <strong>Ou et al. (2024)</strong>
                                     <p>Research on gut microbiota development from birth through adolescence and its relationship with anxiety and behavioral difficulties.</p>
                                     <p class="article-meta">European Child &amp; Adolescent Psychiatry</p>
                                 </div>
-                                <div class="research-study">
+                            </div>
+                            <div class="research-study">
+                                <div class="study-index">3</div>
+                                <div>
                                     <strong>Fujihara et al.</strong>
                                     <p>Altered gut microbiota composition is associated with difficulties in emotion regulation in young children.</p>
                                     <p class="article-meta">Research publication</p>
                                 </div>
                             </div>
-                        </button>
+                        </div>
                     </article>
                 </div>
 
@@ -1207,39 +1566,43 @@
         </section>
 
         <section class="cta-section" id="cta">
-            <div class="container">
-                <div class="cta-card reveal">
+            <div class="container cta-inner">
+                <div class="key-takeaways reveal">
                     <div class="section-intro">
-                        <p class="positive-pill"><i class="fas fa-star"></i> Key Takeaways</p>
+                        <div class="section-chip section-chip--accent"><i class="fas fa-star"></i> Key Takeaways</div>
                         <h2>Remember These Essential Points</h2>
                     </div>
 
-                    <div class="cta-grid">
-                        <article class="takeaway-card">
-                            <ul>
-                                <li>Quality nutrition is essential fuel for your child's developing brain.</li>
-                                <li>Avoid processed foods, artificial additives, and sweetened beverages.</li>
-                                <li>Focus on whole foods, proteins, healthy fats, and complex carbohydrates.</li>
-                            </ul>
-                        </article>
-                        <article class="takeaway-card">
-                            <ul>
-                                <li>Consider evidence-based supplements like Omega-3s, magnesium, and vitamin D.</li>
-                                <li>Support gut health through probiotic foods and fiber-rich plants.</li>
-                                <li>Combine nutrition with behavioral strategies and medical support.</li>
-                            </ul>
-                        </article>
+                    <div class="takeaway-list">
+                        <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Quality nutrition is essential fuel for your child's developing brain.</p></div>
+                        <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Avoid processed foods, artificial additives, and sweetened beverages.</p></div>
+                        <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Focus on whole foods, proteins, healthy fats, and complex carbohydrates.</p></div>
+                        <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Consider evidence-based supplements like Omega-3s, magnesium, and vitamin D.</p></div>
+                        <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Support gut health through probiotic foods and fiber.</p></div>
+                        <div class="takeaway-item"><i class="fas fa-check-circle"></i><p>Take a comprehensive approach that combines nutrition with other treatment strategies.</p></div>
                     </div>
+                </div>
 
+                <div class="cta-core reveal" data-delay="0.2">
+                    <div class="cta-icon-ring"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h2>Ready to Support Your Child's Success?</h2>
                     <p class="hero-intro">If you're concerned about your child's nutrition and its impact on ADHD or anxiety symptoms, schedule a consultation to develop a comprehensive approach that includes nutritional guidance, behavioral strategies, and medical support when needed.</p>
-
-                    <div class="cta-buttons">
+                    <div class="cta-actions">
                         <a class="cta-primary" href="/index.html#contact-form">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
-                        <a class="cta-outline" href="/blog.html">Explore More Insights</a>
+                        <a class="cta-outline" href="/blog.html">Learn More</a>
                     </div>
+                </div>
 
-                    <div class="cta-note">Every child is unique. Working with professionals who understand both ADHD/anxiety and nutrition helps you develop a personalized plan that supports thriving.</div>
-                    <div class="final-cheer">Ready, set……..GO!</div>
+                <div class="cta-approach reveal" data-delay="0.4">
+                    <h3>Our Comprehensive Approach</h3>
+                    <p>At <strong>1-to-1 ADHD &amp; Anxiety Solutions</strong>, we take the topic of child nutrition seriously. If we are addressing your child's struggles with attention and/or anxiety and are considering prescribing a medication to help alleviate these problems, we should definitely ensure that the fuel going into the engine is of the best quality possible.</p>
+                    <p>In this day and age of busy schedules, TV and online advertisements, and limited time to prepare meals, maximizing your child's nutrition can be next to impossible. Consequently, we have arranged a team of online nutritional counsellors and dieticians to work with children and parents to help navigate the modern world of food choices.</p>
+                    <p>Children and families who join this practice will have their dietary status addressed and be referred for nutritional counselling as part of their ongoing management. Nutrition is just one aspect of the multi-dimensional approach that both makes this practice unique and will allow parents to help their children maximize their academic and social functioning and happiness.</p>
+                </div>
+
+                <div class="final-note reveal" data-delay="0.6">
+                    <p>Every child is unique. Working with professionals who understand both ADHD/anxiety and nutrition helps you develop a personalized plan that supports thriving.</p>
+                    <strong>Ready, set……..GO!</strong>
                 </div>
             </div>
         </section>

@@ -98,6 +98,7 @@
 
         .immersive-article {
             overflow: hidden;
+            padding-top: 140px; /* prevent fixed header overlap */
         }
 
         .immersive-article section {
@@ -507,15 +508,15 @@
         }
 
         .research-card[aria-expanded="true"] .research-body {
-            max-height: 540px;
             padding: 1.5rem;
         }
 
         .research-body {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
+            transition: max-height 0.35s ease, padding 0.3s ease;
             background: rgba(20,33,61,0.02);
+            padding: 0 1.5rem;
         }
 
         .research-study {
@@ -1388,11 +1389,32 @@
             });
 
             // Research accordion
+            const recalcResearchHeight = (card) => {
+                const expanded = card.getAttribute('aria-expanded') === 'true';
+                const body = card.querySelector('.research-body');
+                if (!body) return;
+                if (expanded) {
+                    body.style.maxHeight = body.scrollHeight + 'px';
+                } else {
+                    body.style.maxHeight = '0px';
+                }
+            };
+
             document.querySelectorAll('.research-card').forEach(card => {
                 const button = card.querySelector('button');
                 button.addEventListener('click', () => {
                     const expanded = card.getAttribute('aria-expanded') === 'true';
-                    card.setAttribute('aria-expanded', !expanded);
+                    card.setAttribute('aria-expanded', (!expanded).toString());
+                    recalcResearchHeight(card);
+                });
+
+                // Ensure correct initial height
+                recalcResearchHeight(card);
+            });
+
+            window.addEventListener('resize', () => {
+                document.querySelectorAll('.research-card[aria-expanded="true"]').forEach(card => {
+                    recalcResearchHeight(card);
                 });
             });
         });

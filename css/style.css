@@ -22,6 +22,7 @@
     --success-green: #10b981;
     --warning-yellow: #f59e0b;
     --accent-purple: #805AD5;
+    --brand-orange: #ff8a00; /* orangish color to match logo (adjustable) */
 }
 
 * {
@@ -118,18 +119,18 @@ header {
 }
 
 .btn-portal {
-    background: var(--primary-teal);
+    background: var(--brand-orange);
     color: var(--white);
     padding: 0.5rem 1.5rem;
     border-radius: 25px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(32, 178, 170, 0.2);
+    box-shadow: 0 6px 18px rgba(255, 138, 0, 0.15);
 }
 
 .btn-portal:hover {
-    background: var(--dark-teal);
+    background: color-mix(in srgb, var(--brand-orange) 80%, black 20%);
     color: var(--white);
-    box-shadow: 0 4px 12px rgba(32, 178, 170, 0.3);
+    box-shadow: 0 8px 24px rgba(255, 138, 0, 0.18);
     transform: translateY(-1px);
 }
 
@@ -226,14 +227,14 @@ header {
 }
 
 .btn-primary {
-    background: var(--white);
-    color: var(--primary-teal);
+    background: var(--brand-orange);
+    color: var(--white);
 }
 
 .btn-primary:hover {
-    background: var(--light-gray);
+    background: color-mix(in srgb, var(--brand-orange) 85%, black 15%);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 .btn-secondary {
@@ -249,12 +250,12 @@ header {
 
 .btn-outline {
     background: transparent;
-    color: var(--primary-teal);
-    border: 2px solid var(--primary-teal);
+    color: var(--brand-orange);
+    border: 2px solid var(--brand-orange);
 }
 
 .btn-outline:hover {
-    background: var(--primary-teal);
+    background: var(--brand-orange);
     color: var(--white);
 }
 

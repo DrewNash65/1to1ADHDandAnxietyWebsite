@@ -37,6 +37,9 @@ export default async function handler(req, res) {
 
     const responseData = await response.json();
 
+    console.log('Mailchimp response status:', response.status);
+    console.log('Mailchimp response data:', responseData);
+
     if (!response.ok) {
       console.error('Mailchimp error:', responseData);
 
@@ -51,6 +54,7 @@ export default async function handler(req, res) {
       return res.status(response.status).json({ error: responseData.detail || 'Subscription failed' });
     }
 
+    console.log('Subscription successful for:', email);
     return res.status(200).json({ 
       success: true, 
       message: 'Successfully subscribed' 

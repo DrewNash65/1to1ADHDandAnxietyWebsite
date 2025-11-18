@@ -20,18 +20,14 @@ export default async function handler(req, res) {
 
   const url = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${audienceId}/members`;
 
-  // Create MD5 hash of lowercase email for member ID
-  const crypto = await import('crypto');
-  const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
-
   const data = {
     email_address: email,
     status: 'subscribed',
   };
 
   try {
-    const response = await fetch(`${url}/${emailHash}`, {
-      method: 'PUT',
+    const response = await fetch(url, {
+      method: 'POST',
       headers: {
         Authorization: `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`,
         'Content-Type': 'application/json',
@@ -39,19 +35,20 @@ export default async function handler(req, res) {
       body: JSON.stringify(data),
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Mailchimp error:', errorData);
+      console.error('Mailchimp error:', responseData);
 
       // Handle already-subscribed case gracefully
-      if (errorData.detail?.includes('already a list member')) {
+      if (responseData.detail?.includes('already a list member')) {
         return res.status(200).json({ 
           success: true, 
           message: 'Email already subscribed' 
         });
       }
 
-      return res.status(response.status).json({ error: errorData.detail || 'Subscription failed' });
+      return res.status(response.status).json({ error: responseData.detail || 'Subscription failed' });
     }
 
     return res.status(200).json({ 

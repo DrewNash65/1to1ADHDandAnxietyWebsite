@@ -489,6 +489,15 @@ footer {
     color: var(--accent-blue);
 }
 
+.footer-section p {
+    margin-bottom: 0.75rem;
+}
+
+.footer-section strong {
+    color: var(--white);
+    font-weight: 600;
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: 20px;

@@ -479,8 +479,13 @@ footer {
     margin-bottom: 0.5rem;
 }
 
+.footer-section p {
+    color: #e0e0e0;
+    margin-bottom: 0.75rem;
+}
+
 .footer-section a {
-    color: var(--text-light);
+    color: #e0e0e0;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -489,12 +494,8 @@ footer {
     color: var(--accent-blue);
 }
 
-.footer-section p {
-    margin-bottom: 0.75rem;
-}
-
 .footer-section strong {
-    color: var(--white);
+    color: #f0f0f0;
     font-weight: 600;
 }
 

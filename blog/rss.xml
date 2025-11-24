@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/blog/rss.xsl"?>
+<rss version="2.0">
+<channel>
+<title><![CDATA[1-to-1 ADHD & Anxiety Solutions Blog]]></title>
+<link>https://adhd.1to1pediatrics.com/blog.html</link>
+<description><![CDATA[Expert insights, tips, and latest research on ADHD and anxiety in children by Dr. Andrew L. Nash]]></description>
+<language>en-us</language>
+<lastBuildDate>Mon, 24 Nov 2025 01:25:32 +0000</lastBuildDate>
+<item>
+<title><![CDATA[Five Signs Your Child May Have ADHD]]></title>
+<link>https://adhd.1to1pediatrics.com/blog/articles/five-signs-of-adhd-blog.html</link>
+<guid isPermaLink="true">https://adhd.1to1pediatrics.com/blog/articles/five-signs-of-adhd-blog.html</guid>
+<pubDate>Sun, 23 Nov 2025 00:00:00 +0000</pubDate>
+<description><![CDATA[Five signs that your child may have ADHD — what to watch for and first steps parents can take.]]></description>
+</item>
+<item>
+<title><![CDATA[The Importance of Nutrition in Managing ADHD and Anxiety in Children]]></title>
+<link>https://adhd.1to1pediatrics.com/blog/articles/nutrition-managing-adhd-anxiety-children.html</link>
+<guid isPermaLink="true">https://adhd.1to1pediatrics.com/blog/articles/nutrition-managing-adhd-anxiety-children.html</guid>
+<pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
+<description><![CDATA[Discover how proper nutrition can help manage ADHD and anxiety in children. Learn which foods to avoid, essential nutrients for brain health, and evidence-based supplement strategies from Dr. Andrew L. Nash.]]></description>
+</item>
+<item>
+<title><![CDATA[YOUR ARTICLE TITLE HERE]]></title>
+<link>https://adhd.1to1pediatrics.com/blog/articles/my-article-template.html</link>
+<guid isPermaLink="true">https://adhd.1to1pediatrics.com/blog/articles/my-article-template.html</guid>
+<pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
+<description><![CDATA[YOUR COMPELLING 150-160 CHARACTER DESCRIPTION HERE]]></description>
+</item>
+<item>
+<title><![CDATA[YOUR ARTICLE TITLE HERE]]></title>
+<link>https://adhd.1to1pediatrics.com/blog/articles/my-blog-article.html</link>
+<guid isPermaLink="true">https://adhd.1to1pediatrics.com/blog/articles/my-blog-article.html</guid>
+<pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
+<description><![CDATA[YOUR COMPELLING 150-160 CHARACTER DESCRIPTION HERE]]></description>
+</item>
+<item>
+<title><![CDATA[YOUR ARTICLE TITLE HERE]]></title>
+<link>https://adhd.1to1pediatrics.com/blog/articles/YOUR-ARTICLE-TITLE.html</link>
+<guid isPermaLink="true">https://adhd.1to1pediatrics.com/blog/articles/YOUR-ARTICLE-TITLE.html</guid>
+<pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
+<description><![CDATA[YOUR COMPELLING 150-160 CHARACTER DESCRIPTION HERE]]></description>
+</item>
+<item>
+<title><![CDATA[Understanding ADHD in Children: Signs, Symptoms, and Support Strategies]]></title>
+<link>https://adhd.1to1pediatrics.com/blog/articles/understanding-adhd-in-children.html</link>
+<guid isPermaLink="true">https://adhd.1to1pediatrics.com/blog/articles/understanding-adhd-in-children.html</guid>
+<pubDate>Wed, 15 Jan 2025 00:00:00 +0000</pubDate>
+<description><![CDATA[Learn to recognize ADHD symptoms in children and discover effective support strategies. Dr. Andrew L. Nash provides expert insights on diagnosis, treatment options, and practical parenting tips for managing childhood ADHD.]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,10 @@
+# Exclude Partners content from production deployments
+Partners/
+Partners/**
+
+# Optional: ignore source Word documents and drafts
+*.docx
+new_article_1/
+
+# Keep node_modules out if present
+node_modules/

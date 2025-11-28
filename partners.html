@@ -46,6 +46,38 @@
 
     <style>
         /* Partners Page Specific Styles */
+        html { scroll-behavior: smooth; }
+        /* Intro mini logos: consistent sizing + interactions */
+        .intro-content .logo-pill {
+            min-width: 220px;
+            justify-content: center;
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+        }
+        .intro-content .logo-pill:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+        }
+        .intro-content .logo-pill:active { 
+            transform: scale(0.98); 
+        }
+        .intro-content .logo-pill img { 
+            height: 28px; 
+            width: auto; 
+        }
+        .intro-content .logo-pill .fas { 
+            font-size: 22px; 
+        }
+        /* Ensure white/low-contrast logos remain visible in pills (Fenix) */
+        .intro-content .logo-pill img[src*="Fenix_logo.svg"] {
+            background: #1f2937; /* dark charcoal */
+            border-radius: 6px;
+            padding: 1px; /* tighter padding so logo fills window */
+            height: 38px; /* slightly larger to appear wider */
+        }
+        .partner-card.highlight {
+            box-shadow: 0 0 0 3px var(--primary-teal), 0 10px 30px rgba(0,0,0,0.15);
+            transition: box-shadow 0.3s ease;
+        }
         .partners-hero {
             background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-blue) 100%);
             color: var(--white);
@@ -306,6 +338,10 @@
             margin-bottom: 2rem;
             opacity: 0.95;
         }
+        /* Add breathing room around CTA button at bottom */
+        .partners-cta .btn-large {
+            margin: 1.25rem 0;
+        }
 
         /* Featured/Special Partner Highlight */
         .partner-card.featured {
@@ -405,8 +441,10 @@
         <nav class="navbar">
             <div class="nav-container">
                 <div class="logo">
-                    <img src="images/1to1ADHDLogo2.png" alt="1-to-1 ADHD & Anxiety Solutions" class="logo-img">
-                    <span class="logo-text">1-to-1 ADHD & Anxiety Solutions</span>
+                    <a href="index.html" style="display:flex; align-items:center; text-decoration:none; gap:0.5rem;">
+                        <img src="images/1to1ADHDLogo2.png" alt="1-to-1 ADHD & Anxiety Solutions" class="logo-img">
+                        <span class="logo-text">1-to-1 ADHD & Anxiety Solutions</span>
+                    </a>
                 </div>
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
@@ -445,26 +483,22 @@
                         <p>At 1-to-1 ADHD & Anxiety Solutions, we recognize that comprehensive care extends beyond medications alone. Our carefully selected partners provide complementary services and products that address nutrition, mindfulness, evidence-based digital therapeutics, and targeted supplementation—all key components of our multidimensional treatment philosophy.</p>
                         <p>Whether your child needs nutritional guidance, mindfulness training, prescription-based digital therapy, or specialized supplementation, our partners are trusted providers committed to your child's wellbeing.</p>
 
-                        <div class="partner-logos" style="display:flex; gap:1rem; align-items:center; margin-top:1rem; flex-wrap:wrap;">
-                            <div class="logo-pill" style="display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0.75rem; border-radius:10px; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.06);">
-                                <img src="Partners/EndeavorRx-Media/EndeavorRx-Logos/EndeavorRx_UseOnWhite.png" alt="EndeavorRx" style="height:36px; width:auto; display:block;" />
-                                <span style="font-weight:600; color:var(--text-dark);">EndeavorRx</span>
-                            </div>
+                        <div class="partner-logos" style="display:flex; gap:0.75rem; align-items:center; margin-top:1rem; flex-wrap:wrap;">
+                            <a href="#partner-endeavorrx" class="logo-pill" aria-label="EndeavorRx" style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.7rem; border-radius:10px; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.06); text-decoration:none;">
+                                <img src="Partners/EndeavorRx-Media/EndeavorRx-Logos/EndeavorRx_UseOnWhite.png" alt="EndeavorRx" style="display:block;" />
+                            </a>
 
-                            <div class="logo-pill" style="display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0.75rem; border-radius:10px; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.06);">
-                                <i class="fas fa-leaf" style="color:var(--primary-teal); font-size:20px;"></i>
-                                <span style="font-weight:600; color:var(--text-dark);">Nourish</span>
-                            </div>
+                            <a href="#partner-nourish" class="logo-pill" aria-label="Nourish" style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.7rem; border-radius:10px; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.06); text-decoration:none;">
+                                <img src="Partners/Nourish-Media/Nourish Logo" alt="Nourish" style="display:block;" />
+                            </a>
 
-                            <div class="logo-pill" style="display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0.75rem; border-radius:10px; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.06);">
-                                <i class="fas fa-headset" style="color:var(--primary-blue); font-size:20px;"></i>
-                                <span style="font-weight:600; color:var(--text-dark);">Muse</span>
-                            </div>
+                            <a href="#partner-muse" class="logo-pill" aria-label="Muse" style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.7rem; border-radius:10px; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.06); text-decoration:none;">
+                                <img src="Partners/Muse-Media/Muse-Logo-Dark.png" alt="Muse" style="display:block;" />
+                            </a>
 
-                            <div class="logo-pill" style="display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0.75rem; border-radius:10px; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.06);">
-                                <i class="fas fa-capsules" style="color:var(--accent-purple); font-size:20px;"></i>
-                                <span style="font-weight:600; color:var(--text-dark);">Fenix</span>
-                            </div>
+                            <a href="#partner-fenix" class="logo-pill" aria-label="Fenix Health Sciences" style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.7rem; border-radius:10px; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.06); text-decoration:none;">
+                                <img src="Partners/Fenix-Media/Fenix_logo.svg" alt="Fenix Health Sciences" style="display:block;" />
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -476,7 +510,7 @@
                 <h2>Meet Our Partners</h2>
                 <div class="partners-grid">
                     <!-- Nourish Partner Card -->
-                    <div class="partner-card">
+                    <div class="partner-card" id="partner-nourish">
                         <div class="partner-header">
                             <div class="partner-logo-space">
                                 <img src="Partners/Nourish-Media/Nourish Logo" alt="Nourish logo" class="partner-logo-img" />
@@ -512,9 +546,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Image Gallery -->
-                            <div class="partner-gallery" style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1rem;">
-                                <img src="Partners/Nourish-Media/Nourish Logo" alt="Nourish logo" style="height:64px; width:auto; border-radius:8px; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.08); padding:6px;" />
+                            <!-- Visual: Telehealth Dietician -->
+                            <div class="partner-gallery" style="display:flex; justify-content:center; margin:0 0 1rem;">
+                                <img src="Partners/Nourish-Media/dietician-telehealth.jpg" alt="Dietician providing telehealth nutrition counseling" style="width:100%; max-width:420px; height:auto; border-radius:12px; box-shadow:0 4px 14px rgba(0,0,0,0.12); object-fit:cover;" />
                             </div>
                             <div class="partner-links">
                                 <a href="https://www.usenourish.com" target="_blank" rel="noopener noreferrer" class="partner-link link-website">
@@ -528,7 +562,7 @@
                     </div>
 
                     <!-- Muse Partner Card -->
-                    <div class="partner-card">
+                    <div class="partner-card" id="partner-muse">
                         <div class="partner-header">
                             <div class="partner-logo-space">
                                 <img src="Partners/Muse-Media/Muse-Logo-Dark.png" alt="Muse logo" class="partner-logo-img" />
@@ -568,14 +602,11 @@
                                 </div>
                             </div>
                             <!-- Image Gallery -->
-                            <div class="partner-gallery" style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1rem;">
-                                <img src="Partners/Muse-Media/240914_Muse_6924.jpg" alt="Muse product photo 1" style="height:90px; width:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
-                                <img src="Partners/Muse-Media/240914_Muse_7632.jpg" alt="Muse product photo 2" style="height:90px; width:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
+                            <div class="partner-gallery" style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:1rem; justify-content:center;">
+                                <img src="Partners/Muse-Media/240914_Muse_6924.jpg" alt="Muse product photo 1" style="height:160px; width:auto; border-radius:12px; box-shadow:0 3px 12px rgba(0,0,0,0.10);" />
+                                <img src="Partners/Muse-Media/240914_Muse_7632.jpg" alt="Muse product photo 2" style="height:160px; width:auto; border-radius:12px; box-shadow:0 3px 12px rgba(0,0,0,0.10);" />
                             </div>
                             <div class="partner-links">
-                                <a href="https://www.choosemuse.com" target="_blank" rel="noopener noreferrer" class="partner-link link-website">
-                                    <i class="fas fa-external-link-alt"></i> Visit Website
-                                </a>
                                 <a href="https://choosemuse.com/1to1ADHD" target="_blank" rel="noopener noreferrer" class="partner-link link-store">
                                     <i class="fas fa-shopping-bag"></i> Get 20% Off (Code: 1to1ADHD)
                                 </a>
@@ -587,7 +618,7 @@
                     </div>
 
                     <!-- EndeavorRx Partner Card -->
-                    <div class="partner-card featured">
+                    <div class="partner-card featured" id="partner-endeavorrx">
                         <div class="partner-header">
                             <div class="featured-badge"><i class="fas fa-star"></i> FDA Cleared</div>
                             <div class="partner-logo-space">
@@ -627,9 +658,7 @@
                             </div>
                             <!-- Image Gallery -->
                             <div class="partner-gallery" style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1rem;">
-                                <img src="Partners/EndeavorRx-Media/Banner Ads /ERX_HCP_300x250_1.jpg" alt="EndeavorRx banner 300x250" style="height:80px; width:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
-                                <img src="Partners/EndeavorRx-Media/Banner Ads /ERX_HCP_728x90_1.jpg" alt="EndeavorRx banner 728x90" style="height:80px; width:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
-                                <img src="Partners/EndeavorRx-Media/Social Media Posts/ERX_Social_FB_Post_1.jpg" alt="EndeavorRx social post" style="height:80px; width:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
+                                <img src="Partners/EndeavorRx-Media/Banner Ads /ERX_HCP_728x90_1.jpg" alt="EndeavorRx banner" style="width:100%; max-width:500px; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
                             </div>
                             <div class="partner-links">
                                 <a href="https://www.endeavorrx.com" target="_blank" rel="noopener noreferrer" class="partner-link link-website">
@@ -640,10 +669,10 @@
                     </div>
 
                     <!-- Fenix Health Sciences Partner Card -->
-                    <div class="partner-card">
+                    <div class="partner-card" id="partner-fenix">
                         <div class="partner-header">
                             <div class="partner-logo-space">
-                                <i class="fas fa-pills"></i>
+                                <img src="Partners/Fenix-Media/Fenix_logo.svg" alt="Fenix Health Sciences logo" class="partner-logo-img" />
                             </div>
                             <h3>Fenix Health Sciences</h3>
                             <div class="partner-tagline">Evidence-Based Nutritional Supplements</div>
@@ -735,5 +764,31 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        // Enhance anchor logo clicks with smooth scrolling and slight offset for navbar
+        (function() {
+            const offset = 80; // approximate navbar height
+            function scrollToId(id) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const rect = el.getBoundingClientRect();
+                const y = window.pageYOffset + rect.top - offset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+                // Add temporary highlight to the target card
+                el.classList.add('highlight');
+                setTimeout(() => el.classList.remove('highlight'), 1600);
+            }
+
+            document.querySelectorAll('.partner-logos a[href^="#"]').forEach(a => {
+                a.addEventListener('click', function(e) {
+                    const hash = this.getAttribute('href');
+                    if (!hash) return;
+                    const id = hash.replace('#', '');
+                    e.preventDefault();
+                    scrollToId(id);
+                });
+            });
+        })();
+    </script>
 </body>
 </html>

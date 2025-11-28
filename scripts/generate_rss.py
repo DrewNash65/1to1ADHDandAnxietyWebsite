@@ -131,3 +131,37 @@ with open(OUT_PATH, 'w', encoding='utf-8') as f:
     f.write(xml)
 
 print('WROTE', OUT_PATH)
+
+# Also emit a plain HTML view for browsers that don't apply XSL transforms
+HTML_OUT = os.path.join('blog', 'rss.html')
+html_parts = [
+    '<!doctype html>',
+    '<html>',
+    '<head>',
+    '<meta charset="utf-8"/>',
+    f'<title>{channel_title}</title>',
+    '<style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;padding:24px} .item{border-bottom:1px solid #e6e6e6;padding:16px 0} .meta{color:#6b7280;font-size:0.95rem} a.title{color:#0e8a9b;text-decoration:none;font-weight:700;font-size:1.05rem}</style>',
+    '</head>',
+    '<body>',
+    f'<h1>{channel_title}</h1>',
+    f'<p>{channel_desc}</p>'
+]
+
+for it in items:
+    t = it['title']
+    d = it['desc'] or ''
+    l = it['link']
+    pd = format_datetime(it['pub_dt'])
+    html_parts.append('<div class="item">')
+    html_parts.append(f'<div class="meta">{pd}</div>')
+    html_parts.append(f'<div><a class="title" href="{l}">{t}</a></div>')
+    html_parts.append(f'<div class="meta">{d}</div>')
+    html_parts.append('</div>')
+
+html_parts.append('</body>')
+html_parts.append('</html>')
+
+html = '\n'.join(html_parts)
+with open(HTML_OUT, 'w', encoding='utf-8') as f:
+    f.write(html)
+print('WROTE', HTML_OUT)

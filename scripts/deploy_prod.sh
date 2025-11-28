@@ -32,3 +32,23 @@ fi
 vercel --prod --yes
 
 echo "Deployment command sent to Vercel. Check your Vercel dashboard or CLI output for status."
+
+# If NEW_ARTICLE_URL is provided (and MAILCHIMP_TRIGGER_SECRET set), trigger Mailchimp send
+# Usage example:
+#   NEW_ARTICLE_URL="https://adhd.1to1pediatrics.com/blog/articles/five-signs-of-adhd-blog.html" \
+#   NEW_ARTICLE_TITLE="Five Signs Your Child May Have ADHD" \
+#   NEW_ARTICLE_PREVIEW="Five signs that your child may have ADHD..." \
+#   MAILCHIMP_TRIGGER_SECRET="$MAILCHIMP_TRIGGER_SECRET" ./scripts/deploy_prod.sh
+if [ -n "${NEW_ARTICLE_URL:-}" ]; then
+  if [ -z "${MAILCHIMP_TRIGGER_SECRET:-}" ]; then
+    echo "MAILCHIMP_TRIGGER_SECRET not set locally; skipping Mailchimp trigger"
+  else
+    echo "Triggering Mailchimp campaign for: ${NEW_ARTICLE_URL}"
+    curl -sS -X POST "https://adhd.1to1pediatrics.com/api/send-mailchimp-campaign" \
+      -H "Content-Type: application/json" \
+      -H "x-mailchimp-trigger: ${MAILCHIMP_TRIGGER_SECRET}" \
+      -d "{ \"title\": \"${NEW_ARTICLE_TITLE:-New Blog Post}\", \"url\": \"${NEW_ARTICLE_URL}\", \"preview\": \"${NEW_ARTICLE_PREVIEW:-}\" }" || echo "Warning: Mailchimp trigger failed"
+  fi
+else
+  echo "NEW_ARTICLE_URL not provided; skipping Mailchimp trigger"
+fi

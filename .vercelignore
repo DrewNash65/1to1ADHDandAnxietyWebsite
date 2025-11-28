@@ -1,10 +1,14 @@
-# Exclude Partners content from production deployments
-Partners/
-Partners/**
+# Exclude ONLY large media assets not needed for prod
+Partners/EndeavorRx-Media/Video/
+*.ai
+
+# Allow other partner assets (remove blanket exclusion)
+#!Partners/
+#!Partners/**
 
 # Optional: ignore source Word documents and drafts
 *.docx
 new_article_1/
 
-# Keep node_modules out if present
+# Keep node_modules out if present (Vercel installs fresh)
 node_modules/

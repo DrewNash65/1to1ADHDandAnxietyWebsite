@@ -104,7 +104,7 @@ Practice is now accepting patients - Patient is scheduling consultation.
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    from: 'ADHD@1to1Pediatrics.com',
+                    from: 'hello@1to1pediatrics.com',
                     to: [email],
                     subject: 'Your Consultation Inquiry - 1-to-1 ADHD & Anxiety Solutions',
                     html: `

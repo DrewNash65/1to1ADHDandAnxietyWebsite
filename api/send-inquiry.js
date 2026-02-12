@@ -16,10 +16,10 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { parentName, phoneNumber, email, patientName, dateOfBirth, referralSource, otherReferral, concerns } = req.body;
+        const { parentName, phoneNumber, email, patientName, dateOfBirth, serviceType, referralSource, otherReferral, concerns } = req.body;
 
         // Validate required fields
-        if (!parentName || !phoneNumber || !email || !patientName || !dateOfBirth || !referralSource || !concerns) {
+        if (!parentName || !phoneNumber || !email || !patientName || !dateOfBirth || !serviceType || !referralSource || !concerns) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -49,6 +49,9 @@ PATIENT INFORMATION:
 • Name: ${patientName}
 • Date of Birth: ${dateOfBirth}
 
+SERVICE REQUESTED:
+• ${serviceType}
+
 HOW THEY HEARD ABOUT US:
 • ${referralText}
 
@@ -59,7 +62,7 @@ Submitted: ${new Date().toLocaleString()}
 
 ---
 This is an automated message from your website contact form.
-Practice launches Early January 2026 - Patient is reserving consultation spot.
+Practice is now accepting patients - Patient is scheduling consultation.
         `.trim();
 
         // Send email using Resend API directly
@@ -70,7 +73,7 @@ Practice launches Early January 2026 - Patient is reserving consultation spot.
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                from: 'noreply@1to1pediatrics.com',
+                from: 'hello@1to1pediatrics.com',
                 to: ['ADHD@1to1Pediatrics.com'],
                 subject: `New Patient Inquiry: ${patientName}`,
                 html: emailContent.replace(/\n/g, '<br>'),
@@ -86,9 +89,17 @@ Practice launches Early January 2026 - Patient is reserving consultation spot.
         }
 
         const data = await response.json();
+        
+        console.log('✅ First email sent successfully, ID:', data.id);
+        console.log('📧 About to attempt confirmation email...');
+
+        // Send confirmation email to parent immediately (testing without delay)
+        // await new Promise(resolve => setTimeout(resolve, 5000));
 
         // Also send confirmation email to parent
+        let confirmationResult = null;
         try {
+            console.log(`Attempting to send confirmation email to: ${email}`);
             const confirmationResponse = await fetch('https://api.resend.com/emails', {
                 method: 'POST',
                 headers: {
@@ -96,49 +107,52 @@ Practice launches Early January 2026 - Patient is reserving consultation spot.
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    from: 'noreply@1to1pediatrics.com',
+                    from: 'hello@1to1pediatrics.com',
                     to: [email],
                     subject: 'Your Consultation Inquiry - 1-to-1 ADHD & Anxiety Solutions',
                     html: `
                       <h2>Thank You for Your Inquiry!</h2>
                       <p>Dear ${parentName},</p>
-                      <p>We've received your inquiry for ${patientName} and will contact you within 24-48 hours to schedule your consultation for our Early January 2026 launch.</p>
+                      <p>We have received your inquiry for ${patientName} and will contact you within 24-48 hours to schedule your consultation. We are now accepting patients and ready to help!</p>
 
                       <h3>What to Expect Next:</h3>
-                      <ul>
-                        <li>Dr. Nash will review your information</li>
-                        <li>We'll contact you to schedule a virtual consultation</li>
-                        <li>We'll discuss your child's specific needs and our approach</li>
-                      </ul>
+                      <p>• Dr. Nash will review your information<br>
+                      • We will contact you to schedule a virtual consultation<br>
+                      • We will discuss your child's specific needs and our approach</p>
 
                       <p>If you need to reach us sooner, please email: ADHD@1to1Pediatrics.com</p>
 
                       <p>Warm regards,<br>
                       Andrew L. Nash, MD FAAP<br>
-                      1-to-1 ADHD & Anxiety Solutions</p>
+                      1-to-1 ADHD &amp; Anxiety Solutions</p>
                     `,
-                    text: `Thank you for your inquiry! We've received your request and will contact you within 24-48 hours to schedule your consultation for our Early January 2026 launch.`,
+                    text: `Thank you for your inquiry! We have received your request and will contact you within 24-48 hours to schedule your consultation. We are now accepting patients and ready to help!`,
                     replyTo: 'ADHD@1to1Pediatrics.com'
                 })
             });
 
+            console.log(`Confirmation response status: ${confirmationResponse.status}`);
+            
             if (!confirmationResponse.ok) {
                 const errorData = await confirmationResponse.json();
                 console.error('Confirmation email failed:', errorData);
-                // Log the error but don't fail the main request
+                confirmationResult = { error: errorData.message || JSON.stringify(errorData) };
             } else {
                 const confirmationData = await confirmationResponse.json();
                 console.log('Confirmation email sent successfully:', confirmationData.id);
+                confirmationResult = { success: true, id: confirmationData.id };
             }
         } catch (confirmationError) {
-            console.error('Confirmation email error:', confirmationError);
-            // Don't fail the request if confirmation email fails
+            console.error('Confirmation email exception:', confirmationError);
+            confirmationResult = { error: confirmationError.message };
         }
 
         return res.status(200).json({
             success: true,
             message: 'Inquiry submitted successfully',
-            id: data.id
+            id: data.id,
+            confirmationEmail: confirmationResult,
+            debug: 'Confirmation email section completed'
         });
 
     } catch (error) {

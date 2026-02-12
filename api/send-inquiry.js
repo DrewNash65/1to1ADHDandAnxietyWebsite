@@ -89,12 +89,9 @@ Practice is now accepting patients - Patient is scheduling consultation.
         }
 
         const data = await response.json();
-        
-        console.log('✅ First email sent successfully, ID:', data.id);
-        console.log('📧 About to attempt confirmation email...');
 
-        // Send confirmation email to parent immediately (testing without delay)
-        // await new Promise(resolve => setTimeout(resolve, 5000));
+        // Wait 30 seconds before sending confirmation email to prevent Resend hanging issue
+        await new Promise(resolve => setTimeout(resolve, 30000));
 
         // Also send confirmation email to parent
         let confirmationResult = null;
@@ -150,9 +147,7 @@ Practice is now accepting patients - Patient is scheduling consultation.
         return res.status(200).json({
             success: true,
             message: 'Inquiry submitted successfully',
-            id: data.id,
-            confirmationEmail: confirmationResult,
-            debug: 'Confirmation email section completed'
+            id: data.id
         });
 
     } catch (error) {

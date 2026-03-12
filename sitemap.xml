@@ -7,7 +7,7 @@
     <!-- Homepage -->
     <url>
         <loc>https://adhd.1to1pediatrics.com/</loc>
-        <lastmod>2025-11-03</lastmod>
+        <lastmod>2026-02-22</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -42,6 +42,72 @@
         <lastmod>2025-11-03</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+    </url>
+
+    <!-- Partners Page -->
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/partners.html</loc>
+        <lastmod>2025-11-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Blog Listing Page -->
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/blog.html</loc>
+        <lastmod>2026-02-22</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Blog Articles -->
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/blog/articles/middle-school-adhd-success.html</loc>
+        <lastmod>2026-02-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/blog/articles/why-your-child-should-play-guitar.html</loc>
+        <lastmod>2026-01-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/blog/articles/is-my-child-getting-good-quality-sleep.html</loc>
+        <lastmod>2025-12-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/blog/articles/what-is-mindfulness-blog.html</loc>
+        <lastmod>2025-12-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/blog/articles/why-is-my-child-anxious.html</loc>
+        <lastmod>2025-11-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/blog/articles/five-signs-of-adhd-blog.html</loc>
+        <lastmod>2025-11-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://adhd.1to1pediatrics.com/blog/articles/nutrition-managing-adhd-anxiety-children.html</loc>
+        <lastmod>2025-11-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
 
 </urlset>

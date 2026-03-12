@@ -165,8 +165,11 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="concussion.html">Concussions</a></li>
                     <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="faq.html">FAQ</a></li>                    <li><a href="partners.html">Partners</a></li>                    <li><a href="patient-portal.html" class="btn-portal">Patient Portal</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="partners.html">Partners</a></li>
+                    <li><a href="patient-portal.html" class="btn-portal">Patient Portal</a></li>
                 </ul>
                 <div class="hamburger">
                     <span></span>
@@ -202,6 +205,11 @@
                                 <p><i class="fas fa-lock"></i> We respect your privacy. Unsubscribe anytime.</p>
                             </div>
                         </form>
+                        <div class="rss-subscribe" style="margin-top: 1rem; text-align: center;">
+                            <a href="/blog/rss.xml" target="_blank" style="color: #f59e0b; text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-rss"></i> Subscribe via RSS Feed
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -269,6 +277,7 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="blog.html">Blog</a></li>
+                        <li><a href="concussion.html">Concussions</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="faq.html">FAQ</a></li>
                         <li><a href="patient-portal.html">Patient Portal</a></li>
@@ -289,16 +298,56 @@
 
     <script src="js/script.js"></script>
     <script>
-        // Blog articles data
+        // Blog articles data (Updated Mar 11, 2026)
         const blogArticles = [
             {
-                title: "The Importance of Nutrition in Managing ADHD and Anxiety in Children",
-                excerpt: "Discover how proper nutrition can fuel your child's brain for optimal focus and emotional regulation, with evidence-based strategies for ADHD and anxiety management.",
-                category: "Nutrition & Lifestyle",
-                date: "November 16, 2025",
-                readTime: "8 min read",
-                image: "fas fa-apple-alt",
-                url: "blog/articles/nutrition-managing-adhd-anxiety-children.html",
+                title: "5 Things Parents Can Do to Help Their Child with ADHD Succeed in Middle School",
+                excerpt: "Five practical, high-impact strategies parents can implement right away to help their child with ADHD navigate the challenges of middle school.",
+                category: "Parenting Tips",
+                date: "February 22, 2026",
+                readTime: "7 min read",
+                image: "fas fa-graduation-cap",
+                url: "blog/articles/middle-school-adhd-success.html",
+                author: "Andrew L. Nash, MD FAAP"
+            },
+            {
+                title: "Why Your Child Should Play the Guitar: Mindfulness Through Music",
+                excerpt: "Discover how learning guitar can help your child practice mindfulness, reduce screen addiction, and improve focus. Dr. Nash shares why guitar is the perfect instrument for developing young minds.",
+                category: "Mindfulness & Activities",
+                date: "January 23, 2026",
+                readTime: "7 min read",
+                image: "fas fa-music",
+                url: "blog/articles/why-your-child-should-play-guitar.html",
+                author: "Andrew L. Nash, MD FAAP"
+            },
+            {
+                title: "Is My Child Getting Good Quality Sleep?",
+                excerpt: "Sleep is as fundamental as nutrition to your child's development. Learn about factors affecting sleep quality, the importance of consistency, blue light effects, and how to address sleep apnea symptoms.",
+                category: "Sleep & Wellness",
+                date: "December 21, 2025",
+                readTime: "6 min read",
+                image: "fas fa-moon",
+                url: "blog/articles/is-my-child-getting-good-quality-sleep.html",
+                author: "Andrew L. Nash, MD FAAP"
+            },
+            {
+                title: "What is Mindfulness and How It Can Help Your Child with Anxiety and Focus",
+                excerpt: "Discover how mindfulness practices can reduce anxiety and improve focus in children and teens. Dr. Andrew Nash shares evidence-based techniques and simple exercises for kids.",
+                category: "Anxiety and Stress Management",
+                date: "December 7, 2025",
+                readTime: "7 min read",
+                image: "fas fa-leaf",
+                url: "blog/articles/what-is-mindfulness-blog.html",
+                author: "Andrew L. Nash, MD FAAP"
+            },
+            {
+                title: "Why Is My Child Anxious?",
+                excerpt: "Understanding the childhood anxiety epidemic. With nearly 60% of children now experiencing anxiety, explore the causes—from genetics to screen time—and discover practical solutions.",
+                category: "Anxiety & Related Conditions",
+                date: "November 30, 2025",
+                readTime: "10 min read",
+                image: "fas fa-heart",
+                url: "blog/articles/why-is-my-child-anxious.html",
                 author: "Andrew L. Nash, MD FAAP"
             },
             {
@@ -312,13 +361,13 @@
                 author: "Andrew L. Nash, MD FAAP"
             },
             {
-                title: "Why Is My Child Anxious?",
-                excerpt: "Explore common causes of childhood anxiety, signs parents can spot, and practical first steps to help your child feel safer and more supported.",
-                category: "Anxiety Solutions",
-                date: "Coming Soon",
-                readTime: "Coming Soon",
-                image: "fas fa-heart",
-                url: "#",
+                title: "The Importance of Nutrition in Managing ADHD and Anxiety in Children",
+                excerpt: "Discover how proper nutrition can fuel your child's brain for optimal focus and emotional regulation, with evidence-based strategies for ADHD and anxiety management.",
+                category: "Nutrition & Lifestyle",
+                date: "November 16, 2025",
+                readTime: "8 min read",
+                image: "fas fa-apple-alt",
+                url: "blog/articles/nutrition-managing-adhd-anxiety-children.html",
                 author: "Andrew L. Nash, MD FAAP"
             }
         ];

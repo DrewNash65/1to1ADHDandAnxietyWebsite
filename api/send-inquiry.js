@@ -16,10 +16,10 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { parentName, phoneNumber, email, patientName, dateOfBirth, serviceType, referralSource, otherReferral, concerns } = req.body;
+        const { parentName, phoneNumber, email, patientName, dateOfBirth, referralSource, otherReferral, concerns } = req.body;
 
         // Validate required fields
-        if (!parentName || !phoneNumber || !email || !patientName || !dateOfBirth || !serviceType || !referralSource || !concerns) {
+        if (!parentName || !phoneNumber || !email || !patientName || !dateOfBirth || !referralSource || !concerns) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -48,9 +48,6 @@ PARENT/GUARDIAN INFORMATION:
 PATIENT INFORMATION:
 • Name: ${patientName}
 • Date of Birth: ${dateOfBirth}
-
-SERVICE REQUESTED:
-• ${serviceType}
 
 HOW THEY HEARD ABOUT US:
 • ${referralText}

@@ -62,17 +62,23 @@ This is an automated message from your website contact form.
 Practice is now accepting patients - Patient is scheduling consultation.
         `.trim();
 
+        const resendApiKey = process.env.RESEND_API_KEY;
+        if (!resendApiKey) {
+            return res.status(500).json({ error: 'Server email configuration missing: RESEND_API_KEY' });
+        }
+
+        const fromEmail = process.env.RESEND_FROM_EMAIL || 'hello@1to1pediatrics.com';
         const adminToEmail = process.env.INQUIRY_TO_EMAIL || 'ADHD@1to1Pediatrics.com';
 
         // Send email using Resend API directly
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+                'Authorization': `Bearer ${resendApiKey}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                from: 'hello@1to1pediatrics.com',
+                from: fromEmail,
                 to: [adminToEmail],
                 subject: `New Patient Inquiry: ${patientName}`,
                 html: emailContent.replace(/\n/g, '<br>'),
@@ -82,12 +88,16 @@ Practice is now accepting patients - Patient is scheduling consultation.
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Resend API error:', errorData);
-            return res.status(500).json({ error: 'Failed to send email: ' + errorData.message });
+            const errorData = await response.json().catch(() => ({}));
+            console.error('Resend admin email error:', errorData);
+            return res.status(500).json({ error: 'Failed to send admin email', details: errorData });
         }
 
         const data = await response.json();
+
+        if (!data?.id) {
+            return res.status(500).json({ error: 'Admin email was not accepted by provider' });
+        }
 
         // Also send confirmation email to parent
         let confirmationResult = null;
@@ -96,11 +106,11 @@ Practice is now accepting patients - Patient is scheduling consultation.
             const confirmationResponse = await fetch('https://api.resend.com/emails', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+                    'Authorization': `Bearer ${resendApiKey}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    from: 'hello@1to1pediatrics.com',
+                    from: fromEmail,
                     to: [email],
                     subject: 'Your Consultation Inquiry - 1-to-1 ADHD & Anxiety Solutions',
                     html: `
@@ -143,7 +153,8 @@ Practice is now accepting patients - Patient is scheduling consultation.
         return res.status(200).json({
             success: true,
             message: 'Inquiry submitted successfully',
-            id: data.id
+            adminEmailId: data.id,
+            confirmationEmail: confirmationResult
         });
 
     } catch (error) {

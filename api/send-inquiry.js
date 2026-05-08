@@ -62,6 +62,8 @@ This is an automated message from your website contact form.
 Practice is now accepting patients - Patient is scheduling consultation.
         `.trim();
 
+        const adminToEmail = process.env.INQUIRY_TO_EMAIL || 'ADHD@1to1Pediatrics.com';
+
         // Send email using Resend API directly
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -71,7 +73,7 @@ Practice is now accepting patients - Patient is scheduling consultation.
             },
             body: JSON.stringify({
                 from: 'hello@1to1pediatrics.com',
-                to: ['ADHD@1to1Pediatrics.com'],
+                to: [adminToEmail],
                 subject: `New Patient Inquiry: ${patientName}`,
                 html: emailContent.replace(/\n/g, '<br>'),
                 text: emailContent,
@@ -86,9 +88,6 @@ Practice is now accepting patients - Patient is scheduling consultation.
         }
 
         const data = await response.json();
-
-        // Wait 30 seconds before sending confirmation email to prevent Resend hanging issue
-        await new Promise(resolve => setTimeout(resolve, 30000));
 
         // Also send confirmation email to parent
         let confirmationResult = null;
